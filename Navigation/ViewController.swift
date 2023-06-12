@@ -86,7 +86,7 @@ class FeedViewController: UIViewController {
 }
 
 
-/*
+
 class ProfileViewController: UIViewController {
         
     override func viewDidLoad() {
@@ -97,7 +97,7 @@ class ProfileViewController: UIViewController {
         
         
 }
-*/
+
 class PostViewController: UIViewController {
 
     override func viewDidLoad() {

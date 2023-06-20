@@ -19,23 +19,23 @@ class ProfileViewController: UIViewController {
     
     let profileHeaderView = ProfileHeaderView()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .lightGray
         title = profileLabel.text
+        //profileHeaderView.delegate = self
         view.addSubview(profileHeaderView)
-        
         setupConstraints()
-        
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         profileHeaderView.frame = view.frame
     }
+    
+    
+
     
     func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
@@ -63,9 +63,6 @@ class ProfileViewController: UIViewController {
             //profileHeaderView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)
         ])
     }
-    
-    
-    
     
 }
 

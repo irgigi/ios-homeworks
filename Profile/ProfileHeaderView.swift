@@ -8,26 +8,11 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    
-   // override func awakeFromNib() {
-   //     super.awakeFromNib()
- 
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(imageView)
         self.addSubview(bigButton)
-
- /*
-        NSLayoutConstraint.activate([
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 50),
-            
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 50),
-            nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
-   */
+        self.addSubview(textField)
     }
     
     override func layoutSubviews() {
@@ -55,40 +40,7 @@ class ProfileHeaderView: UIView {
         
         return image
     }()
-  /*
-    private func setupUI() {
-        //создание UIImageView с изображением
-        let imageView = UIImageView(
-            frame: CGRect(x: 16, y: 16, width: 120, height: 120)
-            )
-        imageView.image = UIImage(named: "Felix")
-        imageView.contentMode = .scaleToFill
-        imageView.clipsToBounds = true
-        
-        //создание круглой рамки
-        imageView.layer.cornerRadius = imageView.frame.size.width / 2
-        imageView.layer.borderWidth = 3.0
-        imageView.layer.borderColor = UIColor.white.cgColor
-       
  
-        //создание label
-        let label = UILabel(
-            frame: CGRect(x: 200, y: 27, width: 100, height: 50 )
-            )
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
-        label.text = "Cat Felix"
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        //добавление UIImageView на UIView
-        addSubview(imageView)
- //       addSubview(label)
-       
-        
-    }
-
-   */
     let nameLabel: UILabel = {
         let label = UILabel(
             frame: CGRect(x: 160, y: 27, width: 100, height: 50 )
@@ -102,6 +54,18 @@ class ProfileHeaderView: UIView {
         
         return label
         
+    }()
+    
+    let textField: UITextField = {
+        let text = UITextField(
+            frame: CGRect(x: 180, y: 80, width: 150, height: 50)
+        )
+        
+        text.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        text.textColor = UIColor.gray
+        text.placeholder = "введите текст"
+
+        return text
     }()
     
     lazy var bigButton: UIButton = {
@@ -127,8 +91,9 @@ class ProfileHeaderView: UIView {
     }()
     
     @objc func buttonPressed(_ sender: UIButton) {
-        if let title = sender.currentTitle {
-            print(title)
+       
+        if let showText = textField.text {
+            print(showText)
         }
         
     }

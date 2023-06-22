@@ -24,7 +24,6 @@ class ProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .lightGray
         title = profileLabel.text
-        //profileHeaderView.delegate = self
         view.addSubview(profileHeaderView)
         setupConstraints()
     }
@@ -33,9 +32,6 @@ class ProfileViewController: UIViewController {
         super.viewWillLayoutSubviews()
         profileHeaderView.frame = view.frame
     }
-    
-    
-
     
     func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide

@@ -120,20 +120,19 @@ class ProfileHeaderView: UIView {
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
     
         
         return(button)
     }()
     
-    @objc func buttonPressed() {
-        print("test")
+    @objc func buttonPressed(_ sender: UIButton) {
+        if let title = sender.currentTitle {
+            print(title)
+        }
+        
     }
     
-    
- 
-  
-
 }
 
 

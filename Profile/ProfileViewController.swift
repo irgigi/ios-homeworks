@@ -41,15 +41,15 @@ class ProfileViewController: UIViewController {
         let safeAreaGuide = view.safeAreaLayoutGuide
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-          /*  profileHeaderView.leadingAnchor.constraint(
+            profileHeaderView.leadingAnchor.constraint(
                 equalTo: safeAreaGuide.leadingAnchor,
-                constant: 20
+                constant: 0
             ),
             profileHeaderView.trailingAnchor.constraint(
                 equalTo: safeAreaGuide.trailingAnchor,
-                constant: -20
+                constant: 0
             ),
-        */
+        
             profileHeaderView.topAnchor.constraint(
                 equalTo: safeAreaGuide.topAnchor,
                 constant: 10

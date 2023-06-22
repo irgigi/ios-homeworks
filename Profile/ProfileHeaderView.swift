@@ -8,7 +8,10 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
+    private var statusText:String
+    
     override init(frame: CGRect) {
+        statusText = ""
         super.init(frame: frame)
         self.addSubview(imageView)
         self.addSubview(bigButton)
@@ -19,6 +22,7 @@ class ProfileHeaderView: UIView {
         addSubview(nameLabel)
         addSubview(bigButton)
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -56,7 +60,7 @@ class ProfileHeaderView: UIView {
         
     }()
     
-    let textField: UITextField = {
+    lazy var textField: UITextField = {
         let text = UITextField(
             frame: CGRect(x: 180, y: 80, width: 150, height: 50)
         )
@@ -64,9 +68,15 @@ class ProfileHeaderView: UIView {
         text.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         text.textColor = UIColor.gray
         text.placeholder = "введите текст"
+        text.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
 
         return text
     }()
+    
+    @objc func statusTextChanged(_ textField: UITextField) {
+        statusText = textField.text ?? ""
+        
+    }
     
     lazy var bigButton: UIButton = {
         let button = UIButton(
@@ -77,7 +87,7 @@ class ProfileHeaderView: UIView {
                 height: 50
             )
         )
-        button.setTitle("Show status", for: .normal)
+        button.setTitle("My status", for: .normal)
         button.backgroundColor = .systemBlue
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 4
@@ -95,6 +105,8 @@ class ProfileHeaderView: UIView {
         if let showText = textField.text {
             print(showText)
         }
+        
+        bigButton.setTitle(statusText, for: .normal)
         
     }
     

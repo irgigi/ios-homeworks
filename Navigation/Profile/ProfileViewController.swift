@@ -7,23 +7,14 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
-    let profileLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
-        label.text = "Profile"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-       }()
-    
+  
     let profileHeaderView = ProfileHeaderView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .lightGray
-        title = profileLabel.text
+        title = "Profile" 
         view.addSubview(profileHeaderView)
         setupConstraints()
     }
@@ -59,6 +50,6 @@ class ProfileViewController: UIViewController {
             //profileHeaderView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)
         ])
     }
-    
+     
 }
 

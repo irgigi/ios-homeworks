@@ -48,7 +48,6 @@
 		861B23502A2B5E160099CA6D = {
 			isa = PBXGroup;
 			children = (
-				869F01F92A3491D4007456E6 /* Profile */,
 				861B235B2A2B5E160099CA6D /* Navigation */,
 				861B235A2A2B5E160099CA6D /* Products */,
 			);
@@ -65,6 +64,7 @@
 		861B235B2A2B5E160099CA6D /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				869F01F92A3491D4007456E6 /* Profile */,
 				861B235C2A2B5E160099CA6D /* AppDelegate.swift */,
 				861B235E2A2B5E160099CA6D /* SceneDelegate.swift */,
 				861B23602A2B5E160099CA6D /* ViewController.swift */,

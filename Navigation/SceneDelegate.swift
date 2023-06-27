@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let firstNavController = UINavigationController(rootViewController: FeedViewController()) //
         
-        let secondNavController = UINavigationController(rootViewController: ProfileViewController()) //
+        let secondNavController = UINavigationController(rootViewController: LogInViewController()) // было ProfileViewController()
         
         let postNavController = UINavigationController(rootViewController: PostViewController())
         

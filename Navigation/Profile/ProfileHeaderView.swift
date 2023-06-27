@@ -26,17 +26,6 @@ class ProfileHeaderView: UIView {
         return image
     }()
 
-    func avatarImageView() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            imageView.widthAnchor.constraint(equalToConstant: 120),
-            imageView.heightAnchor.constraint(equalToConstant: 120),
-            imageView.trailingAnchor.constraint(equalTo: nameLabel.leadingAnchor, constant: -30)
-        ])
-    }
-
     let nameLabel: UILabel = {
         let label = UILabel(
             frame: CGRect(x: 0, y: 0, width: 100, height: 50 )
@@ -44,25 +33,11 @@ class ProfileHeaderView: UIView {
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
         label.text = "Cat Felix"
-        //label.textAlignment = .center
         label.numberOfLines = 0
-        //label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
         
     }()
-
-    func fullNameLabel() {
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-           // nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
-            nameLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor, constant: -20),
-            nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor)
-        ])
-    }
-
 
     let statusLabel: UILabel = {
         let label = UILabel(
@@ -75,19 +50,6 @@ class ProfileHeaderView: UIView {
         return label
     }()
   
- 
-    func statLabel() {
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-           // statusLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            statusLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 30),
-            statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            statusLabel.bottomAnchor.constraint(equalTo: textField.topAnchor, constant: -10)
-        ])
-            
-    }
- 
     lazy var textField: UITextField = {
         let text = UITextField(
             frame: CGRect(x: 0, y: 0, width: 200, height: 40)
@@ -106,20 +68,6 @@ class ProfileHeaderView: UIView {
 
         return text
     }()
- 
-    func statusTextField() {
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor),
-            textField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 16),
-            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            textField.bottomAnchor.constraint(equalTo: bigButton.topAnchor, constant: -34),
-            textField.widthAnchor.constraint(equalToConstant: 200),
-            textField.heightAnchor.constraint(equalToConstant: 40)
-        
-        ])
-    }
-    
     
     lazy var bigButton: UIButton = {
         let button = UIButton(
@@ -142,20 +90,6 @@ class ProfileHeaderView: UIView {
         return(button)
     }()
 
-    func setStatusBar() {
-        bigButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            bigButton.topAnchor.constraint(equalTo: textField.bottomAnchor),
-            bigButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            bigButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            //bigButton.bottomAnchor.constraint(equalTo: bottomAnchor),
-            //bigButton.widthAnchor.constraint(equalToConstant: 380),
-            bigButton.heightAnchor.constraint(equalToConstant: 50)
-            
-        
-        ])
-    }
-    
     override init(frame: CGRect) {
         statusText = ""
         super.init(frame: frame)
@@ -163,22 +97,11 @@ class ProfileHeaderView: UIView {
         self.addSubview(bigButton)
         self.addSubview(textField)
         self.addSubview(statusLabel)
-        //self.addSubview(nameLabel)
+        self.addSubview(nameLabel)
+        elementConstraint()
         
     }
-    
-    override func layoutSubviews() {
-        //addSubview(imageView)
-        addSubview(nameLabel)
-        addSubview(bigButton)
-        avatarImageView()
-        fullNameLabel()
-        statLabel()
-        statusTextField()
-        setStatusBar()
-    }
-    
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -195,7 +118,54 @@ class ProfileHeaderView: UIView {
             print(showText)
         }
         
-        statusLabel.text = statusText
+        if statusText .isEmpty {
+            statusLabel.text = statusLabel.text
+        } else {
+            statusLabel.text = statusText
+        }
+        
+    }
+    
+    func elementConstraint() {
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        bigButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            imageView.widthAnchor.constraint(equalToConstant: 120),
+            imageView.heightAnchor.constraint(equalToConstant: 120),
+            imageView.trailingAnchor.constraint(equalTo: nameLabel.leadingAnchor, constant: -30),
+            
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
+            nameLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor, constant: -20),
+            nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            nameLabel.heightAnchor.constraint(equalToConstant: 30),
+            
+            statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            statusLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 30),
+            statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            statusLabel.bottomAnchor.constraint(equalTo: textField.topAnchor, constant: -10),
+            statusLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            textField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor),
+            textField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 16),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            textField.bottomAnchor.constraint(equalTo: bigButton.topAnchor, constant: -34),
+            textField.widthAnchor.constraint(equalToConstant: 200),
+            textField.heightAnchor.constraint(equalToConstant: 40),
+            
+            bigButton.topAnchor.constraint(equalTo: textField.bottomAnchor),
+            bigButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            bigButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            bigButton.heightAnchor.constraint(equalToConstant: 50)
+            
+        ])
         
     }
     

@@ -19,4 +19,5 @@ class LogInView: UIView {
     private func setupView() {
         backgroundColor = .white
     }
+    
 }

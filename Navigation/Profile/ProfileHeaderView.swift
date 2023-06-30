@@ -11,15 +11,13 @@ class ProfileHeaderView: UIView {
     private var statusText:String
     
     let imageView: UIImageView = {
-        let image = UIImageView(
-            frame: CGRect(x: 0, y: 0, width: 120, height: 120)
-            )
+        let image = UIImageView()
         image.image = UIImage(named: "Felix")
         image.contentMode = .scaleToFill
         image.clipsToBounds = true
         
         //создание круглой рамки
-        image.layer.cornerRadius = image.frame.size.width / 2
+        image.layer.cornerRadius = 60
         image.layer.borderWidth = 3.0
         image.layer.borderColor = UIColor.white.cgColor
         
@@ -27,9 +25,7 @@ class ProfileHeaderView: UIView {
     }()
 
     let nameLabel: UILabel = {
-        let label = UILabel(
-            frame: CGRect(x: 0, y: 0, width: 100, height: 50 )
-        )
+        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
         label.text = "Cat Felix"
@@ -40,9 +36,7 @@ class ProfileHeaderView: UIView {
     }()
 
     let statusLabel: UILabel = {
-        let label = UILabel(
-            frame: CGRect(x: 0, y: 0, width: 200, height: 50)
-        )
+        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = UIColor.gray
         label.text = "My status"
@@ -51,9 +45,7 @@ class ProfileHeaderView: UIView {
     }()
   
     lazy var textField: UITextField = {
-        let text = UITextField(
-            frame: CGRect(x: 0, y: 0, width: 200, height: 40)
-        )
+        let text = UITextField()
         
         text.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         text.textColor = UIColor.black

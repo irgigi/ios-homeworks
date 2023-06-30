@@ -7,7 +7,6 @@ import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
-    let logInView = LogInView()
     
     private lazy var scrollFieldView: UIScrollView = {
         let scrollFieldView = UIScrollView()
@@ -89,21 +88,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(logInView)
-        
-        logInView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            
-            logInView.topAnchor.constraint(equalTo: view.topAnchor),
-            logInView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            logInView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            logInView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        
-        ])
-        
-        logInView.addSubview(vkView)
-        logInView.addSubview(scrollFieldView)
+        view.backgroundColor = .white
+    
+        view.addSubview(vkView)
+        view.addSubview(scrollFieldView)
         scrollFieldView.addSubview(loginField)
         scrollFieldView.addSubview(passwordField)
         scrollFieldView.addSubview(logInButton)
@@ -120,14 +108,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         NSLayoutConstraint.activate([
             
             scrollFieldView.topAnchor.constraint(equalTo: vkView.bottomAnchor, constant: 120),
-            scrollFieldView.leadingAnchor.constraint(equalTo: logInView.leadingAnchor, constant: 16),
-            scrollFieldView.trailingAnchor.constraint(equalTo: logInView.trailingAnchor, constant: -16),
-            scrollFieldView.bottomAnchor.constraint(equalTo: logInView.bottomAnchor),
+            scrollFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            scrollFieldView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            scrollFieldView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         
-            vkView.topAnchor.constraint(equalTo: logInView.topAnchor, constant: 120),
+            vkView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             vkView.widthAnchor.constraint(equalToConstant: 100),
             vkView.heightAnchor.constraint(equalToConstant: 100),
-            vkView.centerXAnchor.constraint(equalTo: logInView.centerXAnchor),
+            vkView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             loginField.topAnchor.constraint(equalTo: scrollFieldView.topAnchor),
             loginField.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),

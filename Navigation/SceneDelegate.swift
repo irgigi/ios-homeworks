@@ -1,9 +1,7 @@
 //
 //  SceneDelegate.swift
 //  Navigation
-//
-//  Created by Мамуля on 03.06.2023.
-//
+
 
 import UIKit
 
@@ -27,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let postNavController = UINavigationController(rootViewController: PostViewController())
         
-        let infoNavController = UINavigationController(rootViewController: InfoViewController())
+       // let infoNavController = UINavigationController(rootViewController: InfoViewController())
         
         firstNavController.tabBarItem = UITabBarItem(title: "Лента пользователя", image: UIImage(systemName: "heart") , tag: 0)
         

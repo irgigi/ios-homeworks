@@ -27,14 +27,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     
     lazy var loginField: UITextField = {
-        let text = UITextField(frame: CGRect())
+        let text = UITextField()
         
         text.backgroundColor = .systemGray6
         text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         text.placeholder = "Email of phone"
         text.textColor = UIColor.black
         text.tintColor = UIColor(named: "MyColor")
-        text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
+       // text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
         text.leftViewMode = .always
         text.autocapitalizationType = .none
         text.keyboardType = .default
@@ -51,14 +51,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
     
     lazy var passwordField: UITextField = {
-        let text = UITextField(frame: CGRect())
+        let text = UITextField()
         
         text.backgroundColor = .systemGray6
         text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         text.placeholder = "Password"
         text.textColor = UIColor.black
         text.tintColor = UIColor(named: "MyColor")
-        text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
+       // text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
         text.leftViewMode = .always
         text.autocapitalizationType = .none
         text.keyboardType = .default
@@ -76,8 +76,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
     
     lazy var logInButton: UIButton = {
-        let button = UIButton(frame: CGRect())
+        let button = UIButton()
         button.backgroundColor = .blue
+        button.backgroundImage(for: .normal)
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
@@ -107,27 +108,27 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         NSLayoutConstraint.activate([
             
-            scrollFieldView.topAnchor.constraint(equalTo: vkView.bottomAnchor, constant: 120),
-            scrollFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            scrollFieldView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            scrollFieldView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        
             vkView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             vkView.widthAnchor.constraint(equalToConstant: 100),
             vkView.heightAnchor.constraint(equalToConstant: 100),
             vkView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
+            scrollFieldView.topAnchor.constraint(equalTo: vkView.bottomAnchor, constant: 120),
+            scrollFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            scrollFieldView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            scrollFieldView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        
             loginField.topAnchor.constraint(equalTo: scrollFieldView.topAnchor),
             loginField.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
             loginField.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
-            loginField.heightAnchor.constraint(equalToConstant: 100),
+            loginField.heightAnchor.constraint(equalToConstant: 50),
             loginField.bottomAnchor.constraint(equalTo: passwordField.topAnchor),
             //loginField.widthAnchor.constraint(equalToConstant: 300),
             
             passwordField.topAnchor.constraint(equalTo: loginField.bottomAnchor),
             passwordField.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
             passwordField.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
-            passwordField.heightAnchor.constraint(equalToConstant: 100),
+            passwordField.heightAnchor.constraint(equalToConstant: 50),
 
       /*
             logInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 16),

@@ -10,8 +10,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var scrollFieldView: UIScrollView = {
         let scrollFieldView = UIScrollView()
-        //scrollFieldView.showsVerticalScrollIndicator = true
-        //scrollFieldView.showsHorizontalScrollIndicator = false
+        scrollFieldView.showsVerticalScrollIndicator = true
+        scrollFieldView.showsHorizontalScrollIndicator = false
         return scrollFieldView
     }()
     
@@ -76,15 +76,30 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
     
     lazy var logInButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .blue
+        let button = UIButton(type: .custom)
+        let bluePixelImage = UIImage(named: "blue_pixel")
+        button.setBackgroundImage(bluePixelImage, for: .normal)
         button.backgroundImage(for: .normal)
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.setContentHuggingPriority(.required, for: .horizontal)
+        button.setContentHuggingPriority(.required, for: .vertical)
+        button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.setContentCompressionResistancePriority(.required, for: .vertical)
         button.layer.cornerRadius = 10
         
         return button
     }()
+    
+    lazy var stackViewForFields: UIStackView = {
+        let stackViewForFields = UIStackView()
+        stackViewForFields.axis = .vertical
+        stackViewForFields.alignment = .fill
+        stackViewForFields.distribution = .fillEqually
+        stackViewForFields.spacing = 0
+        return stackViewForFields
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,50 +108,65 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
         view.addSubview(vkView)
         view.addSubview(scrollFieldView)
-        scrollFieldView.addSubview(loginField)
-        scrollFieldView.addSubview(passwordField)
+        scrollFieldView.addSubview(stackViewForFields)
         scrollFieldView.addSubview(logInButton)
+        stackViewForFields.addSubview(loginField)
+        stackViewForFields.addSubview(passwordField)
+        
         self.setupElements()
         
     }
     
-    func setupElements() {
+    private func setupElements() {
+        let safeAreaGuide = view.safeAreaLayoutGuide
         scrollFieldView.translatesAutoresizingMaskIntoConstraints = false
         vkView.translatesAutoresizingMaskIntoConstraints = false
         loginField.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
+        logInButton.translatesAutoresizingMaskIntoConstraints = false
+        stackViewForFields.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
-            vkView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+            vkView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor, constant: 120),
             vkView.widthAnchor.constraint(equalToConstant: 100),
             vkView.heightAnchor.constraint(equalToConstant: 100),
-            vkView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            vkView.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor),
             
             scrollFieldView.topAnchor.constraint(equalTo: vkView.bottomAnchor, constant: 120),
-            scrollFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            scrollFieldView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            scrollFieldView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollFieldView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor, constant: 16),
+            scrollFieldView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: -16),
+            scrollFieldView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor),
+            scrollFieldView.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor),
+            
+            stackViewForFields.topAnchor.constraint(equalTo: scrollFieldView.topAnchor),
+            stackViewForFields.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
+            stackViewForFields.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
+            stackViewForFields.bottomAnchor.constraint(equalTo: logInButton.topAnchor, constant: -16),
+            stackViewForFields.centerXAnchor.constraint(equalTo: scrollFieldView.centerXAnchor),
         
-            loginField.topAnchor.constraint(equalTo: scrollFieldView.topAnchor),
-            loginField.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
-            loginField.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
+            loginField.topAnchor.constraint(equalTo: stackViewForFields.topAnchor),
+            loginField.leadingAnchor.constraint(equalTo: stackViewForFields.leadingAnchor),
+            loginField.trailingAnchor.constraint(equalTo: stackViewForFields.trailingAnchor),
             loginField.heightAnchor.constraint(equalToConstant: 50),
+            loginField.widthAnchor.constraint(equalTo: stackViewForFields.widthAnchor),
             loginField.bottomAnchor.constraint(equalTo: passwordField.topAnchor),
             //loginField.widthAnchor.constraint(equalToConstant: 300),
             
             passwordField.topAnchor.constraint(equalTo: loginField.bottomAnchor),
-            passwordField.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
-            passwordField.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
+            passwordField.leadingAnchor.constraint(equalTo: stackViewForFields.leadingAnchor),
+            passwordField.trailingAnchor.constraint(equalTo: stackViewForFields.trailingAnchor),
+            passwordField.widthAnchor.constraint(equalTo: stackViewForFields.widthAnchor),
             passwordField.heightAnchor.constraint(equalToConstant: 50),
-
-      /*
-            logInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 16),
+            passwordField.bottomAnchor.constraint(equalTo: stackViewForFields.bottomAnchor),
+            
+            logInButton.topAnchor.constraint(equalTo: stackViewForFields.bottomAnchor, constant: -16),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
-            logInButton.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
-            logInButton.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
-            logInButton.bottomAnchor.constraint(equalTo: scrollFieldView.bottomAnchor)
-       */
+            logInButton.widthAnchor.constraint(equalTo: stackViewForFields.widthAnchor),
+            logInButton.leadingAnchor.constraint(equalTo: stackViewForFields.leadingAnchor),
+            logInButton.trailingAnchor.constraint(equalTo: stackViewForFields.trailingAnchor),
+            logInButton.bottomAnchor.constraint(equalTo: stackViewForFields.bottomAnchor)
+       
         ])
         
     }

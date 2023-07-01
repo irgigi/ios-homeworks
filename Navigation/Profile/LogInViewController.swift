@@ -82,11 +82,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         button.backgroundImage(for: .normal)
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.setContentHuggingPriority(.required, for: .horizontal)
-        button.setContentHuggingPriority(.required, for: .vertical)
-        button.setContentCompressionResistancePriority(.required, for: .horizontal)
-        button.setContentCompressionResistancePriority(.required, for: .vertical)
-        button.layer.cornerRadius = 10
+        //button.setContentHuggingPriority(.required, for: .horizontal)
+        //button.setContentHuggingPriority(.required, for: .vertical)
+        //button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        //button.setContentCompressionResistancePriority(.required, for: .vertical)
+        button.layer.cornerRadius = 10.0
         
         return button
     }()
@@ -143,6 +143,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             stackViewForFields.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
             stackViewForFields.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
             stackViewForFields.bottomAnchor.constraint(equalTo: logInButton.topAnchor, constant: -16),
+            stackViewForFields.heightAnchor.constraint(equalToConstant: 100),
             stackViewForFields.centerXAnchor.constraint(equalTo: scrollFieldView.centerXAnchor),
         
             loginField.topAnchor.constraint(equalTo: stackViewForFields.topAnchor),
@@ -162,10 +163,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             
             logInButton.topAnchor.constraint(equalTo: stackViewForFields.bottomAnchor, constant: -16),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
-            logInButton.widthAnchor.constraint(equalTo: stackViewForFields.widthAnchor),
-            logInButton.leadingAnchor.constraint(equalTo: stackViewForFields.leadingAnchor),
-            logInButton.trailingAnchor.constraint(equalTo: stackViewForFields.trailingAnchor),
-            logInButton.bottomAnchor.constraint(equalTo: stackViewForFields.bottomAnchor)
+            logInButton.widthAnchor.constraint(equalTo: scrollFieldView.widthAnchor),
+            logInButton.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
+            logInButton.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
+            logInButton.bottomAnchor.constraint(equalTo: scrollFieldView.bottomAnchor)
        
         ])
         

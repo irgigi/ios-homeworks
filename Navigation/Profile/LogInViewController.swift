@@ -5,13 +5,14 @@
 
 import UIKit
 
-class LogInViewController: UIViewController, UITextFieldDelegate {
+class LogInViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
     
     
     private lazy var scrollFieldView: UIScrollView = {
         let scrollFieldView = UIScrollView()
         scrollFieldView.showsVerticalScrollIndicator = true
         scrollFieldView.showsHorizontalScrollIndicator = false
+        scrollFieldView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return scrollFieldView
     }()
     
@@ -34,7 +35,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         text.placeholder = "Email of phone"
         text.textColor = UIColor.black
         text.tintColor = UIColor(named: "MyColor")
-       // text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
+        text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
         text.leftViewMode = .always
         text.autocapitalizationType = .none
         text.keyboardType = .default
@@ -58,7 +59,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         text.placeholder = "Password"
         text.textColor = UIColor.black
         text.tintColor = UIColor(named: "MyColor")
-       // text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
+        text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
         text.leftViewMode = .always
         text.autocapitalizationType = .none
         text.keyboardType = .default
@@ -70,18 +71,19 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         text.layer.borderWidth = 0.5
         text.layer.cornerRadius = 10
         
-        text.delegate = self
+        //text.delegate = self
         
         return text
     }()
     
     lazy var logInButton: UIButton = {
-        let button = UIButton(type: .custom)
+        let button = UIButton()
         let bluePixelImage = UIImage(named: "blue_pixel")
         button.setBackgroundImage(bluePixelImage, for: .normal)
         button.backgroundImage(for: .normal)
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.clipsToBounds = true
         //button.setContentHuggingPriority(.required, for: .horizontal)
         //button.setContentHuggingPriority(.required, for: .vertical)
         //button.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -105,6 +107,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
     
         view.addSubview(vkView)
         view.addSubview(scrollFieldView)
@@ -113,8 +116,70 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         stackViewForFields.addSubview(loginField)
         stackViewForFields.addSubview(passwordField)
         
+        
         self.setupElements()
         
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupKeyboardObservers()
+ 
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        removeKeyboardObservers()
+        
+    }
+    
+    
+    
+    private func setupKeyboardObservers() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(self.willShowKeyboard(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(self.willHideKeyboard(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    private func removeKeyboardObservers() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self)
+    }
+    
+    @objc func willShowKeyboard(_ notification: NSNotification) {
+        
+        let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.height
+        scrollFieldView.contentInset.bottom += keyboardHeight ?? 0.0
+        
+    }
+    
+    @objc func willHideKeyboard(_ notification: NSNotification) {
+        scrollFieldView.contentInset.bottom = 0.0
+    }
+ 
+    func textFieldShouldReturn(
+        _ loginField: UITextField
+    ) -> Bool {
+        loginField.resignFirstResponder()
+       // passwordField.resignFirstResponder()
+        
+        return true
     }
     
     private func setupElements() {
@@ -171,4 +236,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         ])
         
     }
+    
+    
 }
+

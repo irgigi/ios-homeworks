@@ -89,6 +89,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         //button.setContentCompressionResistancePriority(.required, for: .horizontal)
         //button.setContentCompressionResistancePriority(.required, for: .vertical)
         button.layer.cornerRadius = 10.0
+        button.addTarget(self, action: #selector(buttonToProfile), for: .touchUpInside)
         
         return button
     }()
@@ -160,6 +161,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     private func removeKeyboardObservers() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.removeObserver(self)
+    }
+    
+    @objc func buttonToProfile() {
+        let profileViewController = ProfileViewController()
+        navigationController?.pushViewController(profileViewController, animated: true)
     }
     
     @objc func willShowKeyboard(_ notification: NSNotification) {

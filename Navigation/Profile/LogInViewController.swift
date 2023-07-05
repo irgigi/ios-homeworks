@@ -5,7 +5,7 @@
 
 import UIKit
 
-class LogInViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
+class LogInViewController: UIViewController, UITextFieldDelegate {
     
     
     private lazy var scrollFieldView: UIScrollView = {
@@ -46,7 +46,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         text.layer.borderWidth = 0.5
         text.layer.cornerRadius = 10
         
-        text.delegate = self
+        //text.delegate = self
         
         return text
     }()
@@ -99,7 +99,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         stackViewForFields.axis = .vertical
         stackViewForFields.alignment = .fill
         stackViewForFields.distribution = .fillEqually
-        stackViewForFields.spacing = 0
+        stackViewForFields.spacing = 0.5
         return stackViewForFields
     }()
     
@@ -114,14 +114,27 @@ class LogInViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         view.addSubview(scrollFieldView)
         scrollFieldView.addSubview(stackViewForFields)
         scrollFieldView.addSubview(logInButton)
-        stackViewForFields.addSubview(loginField)
-        stackViewForFields.addSubview(passwordField)
-        
+        stackViewForFields.addArrangedSubview(loginField)
+        stackViewForFields.addArrangedSubview(passwordField)
         
         self.setupElements()
         
+        self.loginField.delegate = self
         
+        
+
     }
+    
+    func textFieldShouldReturn(
+        _ textField: UITextField
+    ) -> Bool {
+        return loginField.resignFirstResponder()
+    }
+    
+    override func touchesBegan(_ textField: Set<UITouch>, with event: UIEvent?) {
+        self.scrollFieldView.endEditing(true)
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -179,14 +192,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         scrollFieldView.contentInset.bottom = 0.0
     }
  
-    func textFieldShouldReturn(
-        _ loginField: UITextField
-    ) -> Bool {
-        loginField.resignFirstResponder()
-       // passwordField.resignFirstResponder()
-        
-        return true
-    }
     
     private func setupElements() {
         let safeAreaGuide = view.safeAreaLayoutGuide
@@ -209,7 +214,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
             scrollFieldView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: -16),
             scrollFieldView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor),
             scrollFieldView.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor),
-            
+      
             stackViewForFields.topAnchor.constraint(equalTo: scrollFieldView.topAnchor),
             stackViewForFields.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
             stackViewForFields.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
@@ -224,7 +229,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
             loginField.widthAnchor.constraint(equalTo: stackViewForFields.widthAnchor),
             loginField.bottomAnchor.constraint(equalTo: passwordField.topAnchor),
             //loginField.widthAnchor.constraint(equalToConstant: 300),
-            
+        
             passwordField.topAnchor.constraint(equalTo: loginField.bottomAnchor),
             passwordField.leadingAnchor.constraint(equalTo: stackViewForFields.leadingAnchor),
             passwordField.trailingAnchor.constraint(equalTo: stackViewForFields.trailingAnchor),

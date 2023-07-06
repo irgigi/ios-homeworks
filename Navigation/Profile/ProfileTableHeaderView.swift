@@ -31,14 +31,28 @@ class ProfileTableHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.backgroundColor = .white
         let profileHeaderView = ProfileHeaderView()
         self.addSubview(profileHeaderView)
+        self.addSubview(tableView)
         
         
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupConstraints() {
+        let safeAreaGuide = self.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            
+            tableView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
+        
+        ])
     }
 }

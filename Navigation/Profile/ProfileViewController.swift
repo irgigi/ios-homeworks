@@ -18,12 +18,7 @@ class ProfileViewController: UIViewController {
         view.addSubview(profileHeaderView)
         setupConstraints()
     }
-  /*
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        profileHeaderView.frame = view.frame
-    }
-   */
+ 
     func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false

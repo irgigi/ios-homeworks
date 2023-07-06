@@ -16,6 +16,8 @@
 		865720152A3B246F00F6B3F6 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865720142A3B246F00F6B3F6 /* InfoViewController.swift */; };
 		865720172A3B252300F6B3F6 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865720162A3B252300F6B3F6 /* FeedViewController.swift */; };
 		865720192A3B25A600F6B3F6 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865720182A3B25A600F6B3F6 /* PostViewController.swift */; };
+		865A9B062A5673FF00929A10 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865A9B052A5673FF00929A10 /* Post.swift */; };
+		865A9B082A567F6B00929A10 /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865A9B072A567F6B00929A10 /* ProfileTableHeaderView.swift */; };
 		869F01FB2A349217007456E6 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F01FA2A349217007456E6 /* ProfileHeaderView.swift */; };
 		869F01FD2A349500007456E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F01FC2A349500007456E6 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +34,8 @@
 		865720142A3B246F00F6B3F6 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		865720162A3B252300F6B3F6 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		865720182A3B25A600F6B3F6 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		865A9B052A5673FF00929A10 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		865A9B072A567F6B00929A10 /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
 		869F01FA2A349217007456E6 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		869F01FC2A349500007456E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +90,8 @@
 				869F01FA2A349217007456E6 /* ProfileHeaderView.swift */,
 				869F01FC2A349500007456E6 /* ProfileViewController.swift */,
 				863C03672A4B0F4C006C40EB /* LogInViewController.swift */,
+				865A9B052A5673FF00929A10 /* Post.swift */,
+				865A9B072A567F6B00929A10 /* ProfileTableHeaderView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -169,6 +175,8 @@
 				865720152A3B246F00F6B3F6 /* InfoViewController.swift in Sources */,
 				869F01FB2A349217007456E6 /* ProfileHeaderView.swift in Sources */,
 				865720172A3B252300F6B3F6 /* FeedViewController.swift in Sources */,
+				865A9B082A567F6B00929A10 /* ProfileTableHeaderView.swift in Sources */,
+				865A9B062A5673FF00929A10 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

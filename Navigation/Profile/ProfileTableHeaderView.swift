@@ -20,14 +20,17 @@ class ProfileTableHeaderView: UIView {
             style: .plain
         )
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         return tableView
     }()
-    
+
     private enum CellReuseID: String {
         case base = "BaseTableViewCell_ReuseID"
         case custom = "CustomTableViewCell_ReuseID"
     }
+ 
     
+    // MARK: -
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,7 +38,7 @@ class ProfileTableHeaderView: UIView {
         let profileHeaderView = ProfileHeaderView()
         self.addSubview(profileHeaderView)
         self.addSubview(tableView)
-        
+        setupConstraints()
         
     }
     
@@ -55,4 +58,28 @@ class ProfileTableHeaderView: UIView {
         
         ])
     }
+    
 }
+
+extension ProfileTableHeaderView: UITableViewDataSource, UITableViewDelegate {
+    
+    
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        PostModel.make().count
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: CellReuseID.base.rawValue,
+            for: indexPath)
+        return cell
+    }
+        
+}
+

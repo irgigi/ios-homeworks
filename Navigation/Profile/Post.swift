@@ -18,9 +18,9 @@ struct PostModel {
 extension PostModel {
     static func make() -> [PostModel] {
         [
-            PostModel(author: "",
-                      description: "",
-                      image: "",
+            PostModel(author: ProfileHeaderView().nameLabel.text ?? "Felix",
+                      description: "Me in 2 mounth",
+                      image: "felix1",
                       likes: 0,
                       views: 0)
         ]

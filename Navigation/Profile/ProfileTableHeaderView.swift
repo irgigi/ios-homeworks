@@ -13,7 +13,7 @@ class ProfileTableHeaderView: UIView {
     
     // MARK: - Data
     
-    let data = PostModel.make()
+    fileprivate let data = PostModel.make()
     
     enum CellReuseID: String {
         case base = "BaseTableViewCell_ReuseID"
@@ -25,7 +25,7 @@ class ProfileTableHeaderView: UIView {
     }
     
     
-    // MARK: - for table
+    // MARK: - table
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView.init(
@@ -47,17 +47,7 @@ class ProfileTableHeaderView: UIView {
         return tableView
     }()
     
-    let autorLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        return label
-    }()
     
-    let imagePost: UIImageView = {
-        let image = UIImageView()
-        image.draw(CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
-        return image
-    }()
     
     
     // MARK: - Subviews
@@ -143,8 +133,10 @@ class ProfileTableHeaderView: UIView {
         self.addSubview(statusLabel)
         self.addSubview(nameLabel)
         self.addSubview(tableView)
+        /*
         tableView.addSubview(autorLabel)
         tableView.addSubview(imagePost)
+         */
         elementConstraint()
         
 
@@ -183,8 +175,8 @@ class ProfileTableHeaderView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         bigButton.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        autorLabel.translatesAutoresizingMaskIntoConstraints = false
-        imagePost.translatesAutoresizingMaskIntoConstraints = false
+      //  autorLabel.translatesAutoresizingMaskIntoConstraints = false
+      //  imagePost.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
@@ -218,10 +210,12 @@ class ProfileTableHeaderView: UIView {
             bigButton.heightAnchor.constraint(equalToConstant: 50),
             
             tableView.topAnchor.constraint(equalTo: bigButton.bottomAnchor, constant: 16),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+           // tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      
+            tableView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4)
+            
+      /*
             autorLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 16),
             autorLabel.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
             autorLabel.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
@@ -233,7 +227,7 @@ class ProfileTableHeaderView: UIView {
             imagePost.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
             imagePost.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
             imagePost.widthAnchor.constraint(equalTo: tableView.widthAnchor)
-            
+        */
         
         ])
         
@@ -258,6 +252,13 @@ extension ProfileTableHeaderView: UITableViewDelegate, UITableViewDataSource {
         }
         cell.update(data[indexPath.row])
         return cell
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        heightForHeaderInSection section: Int
+    ) -> CGFloat {
+        UITableView.automaticDimension
     }
     
     

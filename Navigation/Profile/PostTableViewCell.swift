@@ -20,6 +20,7 @@ class PostTableViewCell: UITableViewCell {
                 reuseIdentifier: reuseIdentifier
             )
 
+
           //  tuneView()
         }
         
@@ -48,8 +49,10 @@ class PostTableViewCell: UITableViewCell {
         }
     
     func update(_ model: PostModel) {
-            textLabel?.text = model.author
-            detailTextLabel?.text = model.image
+        let profileTableHeaderView = ProfileTableHeaderView()
+        profileTableHeaderView.autorLabel.text = model.author
+        profileTableHeaderView.imagePost.image = UIImage(named: model.image)
+        //detailTextLabel?.text = model.image
         }
     
 }

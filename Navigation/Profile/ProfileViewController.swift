@@ -11,18 +11,7 @@ class ProfileViewController: UIViewController {
     //let profileHeaderView = ProfileHeaderView()
     let profileTableHeaderView = ProfileTableHeaderView()
     
-    // MARK: - Data
     
-    let data = PostModel.make()
-    
-    private enum CellReuseID: String {
-        case base = "BaseTableViewCell_ReuseID"
-        case custom = "CustomTableViewCell_ReuseID"
-    }
-    
-    private enum HeaderFooterReuseID: String {
-        case base = "TableSelectionFooterHeaderView_ReuseID"
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +53,7 @@ class ProfileViewController: UIViewController {
      
 }
 
+/*
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(
@@ -117,3 +107,4 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
 */
 }
+*/

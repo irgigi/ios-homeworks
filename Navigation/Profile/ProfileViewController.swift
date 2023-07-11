@@ -7,8 +7,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-  
-    //let profileHeaderView = ProfileHeaderView()
+
     let profileTableHeaderView = ProfileTableHeaderView()
     
     
@@ -18,7 +17,7 @@ class ProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .lightGray
         title = "Profile" 
-        //view.addSubview(profileHeaderView)
+       
         view.addSubview(profileTableHeaderView)
         setupConstraints()
     }
@@ -53,58 +52,4 @@ class ProfileViewController: UIViewController {
      
 }
 
-/*
-extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
-        data.count
-    }
-    
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: CellReuseID.base.rawValue,
-            for: indexPath
-        ) as? PostTableViewCell else {
-            fatalError("could not dequeueReusableCell")
-        }
-        cell.update(data[indexPath.row])
-        return cell
-    }
-    
-    func tableView(
-        _ tableView: UITableView,
-        heightForHeaderInSection section: Int
-    ) -> CGFloat {
-        UITableView.automaticDimension
-    }
-    
-    func tableView(
-        _ tableView: UITableView,
-        heightForFooterInSection section: Int
-    ) -> CGFloat {
-        UITableView.automaticDimension
-    }
-/*
-    func tableView(
-        _ tableView: UITableView,
-        viewForFooterInSection section: Int
-    ) -> UIView? {
-        
-        guard let footerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: HeaderFooterReuseID.base.rawValue
-        ) as? ProfileTableHeaderView else {
-            fatalError("could not dequeueReusableCell")
-        }
-        
-        footerView.update(title: "?")
-        return footerView
-    }
-*/
-}
-*/
+

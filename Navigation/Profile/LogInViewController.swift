@@ -84,10 +84,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.clipsToBounds = true
-        //button.setContentHuggingPriority(.required, for: .horizontal)
-        //button.setContentHuggingPriority(.required, for: .vertical)
-        //button.setContentCompressionResistancePriority(.required, for: .horizontal)
-        //button.setContentCompressionResistancePriority(.required, for: .vertical)
         button.layer.cornerRadius = 10.0
         button.addTarget(self, action: #selector(buttonToProfile), for: .touchUpInside)
         

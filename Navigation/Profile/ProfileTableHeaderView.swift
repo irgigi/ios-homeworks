@@ -175,8 +175,6 @@ class ProfileTableHeaderView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         bigButton.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-      //  autorLabel.translatesAutoresizingMaskIntoConstraints = false
-      //  imagePost.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
@@ -215,19 +213,6 @@ class ProfileTableHeaderView: UIView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4)
             
-      /*
-            autorLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 16),
-            autorLabel.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
-            autorLabel.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
-            autorLabel.bottomAnchor.constraint(equalTo: imagePost.topAnchor),
-            autorLabel.heightAnchor.constraint(equalToConstant: 20),
-            
-         
-            imagePost.topAnchor.constraint(equalTo: autorLabel.bottomAnchor, constant: -12),
-            imagePost.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
-            imagePost.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
-            imagePost.widthAnchor.constraint(equalTo: tableView.widthAnchor)
-        */
         
         ])
         

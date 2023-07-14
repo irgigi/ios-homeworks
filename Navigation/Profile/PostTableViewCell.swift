@@ -54,7 +54,7 @@ class PostTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
-        stackView.spacing = 250
+        stackView.spacing = 230
         
         return stackView
     }()

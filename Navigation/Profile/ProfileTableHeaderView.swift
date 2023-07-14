@@ -27,7 +27,7 @@ class ProfileTableHeaderView: UIView {
     
     // MARK: - table
     
-    private lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView.init(
             frame: .zero,
             style: .plain
@@ -37,9 +37,16 @@ class ProfileTableHeaderView: UIView {
         
         
         tableView.register(
+            PhotosTableViewCell.self,
+            forCellReuseIdentifier: CellReuseID.custom.rawValue
+        )
+        
+        tableView.register(
             PostTableViewCell.self,
             forCellReuseIdentifier: CellReuseID.base.rawValue
         )
+        
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -222,21 +229,44 @@ class ProfileTableHeaderView: UIView {
 
 extension ProfileTableHeaderView: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        data.count
+        if section == 0 {
+            return 1
+        } else if section == 1 {
+            return data.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: CellReuseID.base.rawValue,
-            for: indexPath
-        ) as? PostTableViewCell else {
-            fatalError("could not dequeueReusableCell")
+        if indexPath.section == 1 {
+            
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellReuseID.base.rawValue,
+                for: indexPath
+            ) as? PostTableViewCell else {
+                fatalError("could not dequeueReusableCell")
+            }
+            cell.update(data[indexPath.row])
+            return cell
+        } else if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellReuseID.custom.rawValue,
+                for: indexPath
+            ) as? PhotosTableViewCell else {
+                fatalError("could not dequeueReusableCell")
+            }
+            cell.createImage(data[indexPath.row])
+            return cell
         }
-        cell.update(data[indexPath.row])
-        return cell
+        
+        // возвращает пустую ячейку в случае ошибки
+        return UITableViewCell()
     }
     
     func tableView(
@@ -245,8 +275,18 @@ extension ProfileTableHeaderView: UITableViewDelegate, UITableViewDataSource {
     ) -> CGFloat {
         UITableView.automaticDimension
     }
-    
-    
+    /*
+    func tableView(
+        _ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
+        if section == 0 {
+            let headerView = tableView.dequeueReusableCell(withIdentifier: CellReuseID.custom.rawValue) as! PhotosTableViewCell
+            return headerView.contentView
+        }
+        return nil
+    }
+    */
 }
 
 

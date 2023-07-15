@@ -9,7 +9,7 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     let profileTableHeaderView = ProfileTableHeaderView()
-    
+   
     
     
     override func viewDidLoad() {
@@ -20,6 +20,16 @@ class ProfileViewController: UIViewController {
        
         view.addSubview(profileTableHeaderView)
         setupConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
  
     func setupConstraints() {

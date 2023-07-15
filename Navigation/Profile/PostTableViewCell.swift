@@ -8,6 +8,8 @@ class PostTableViewCell: UITableViewCell {
     
     let profileTableHeaderView = ProfileTableHeaderView()
     
+    
+    
     // MARK: -
     
     let autorLabel: UILabel = {
@@ -20,8 +22,12 @@ class PostTableViewCell: UITableViewCell {
     
     let imagePost: UIImageView = {
         let image = UIImageView()
+        let screenWidth = UIScreen.main.bounds.width
         image.backgroundColor = .black
         image.contentMode = .scaleAspectFill
+      /*
+        image.transform = CGAffineTransform(scaleX: UIScreen.main.bounds.width/image.bounds.width, y: UIScreen.main.bounds.width/image.bounds.width)
+       */
         return image
     }()
     
@@ -146,16 +152,17 @@ class PostTableViewCell: UITableViewCell {
             imagePost.topAnchor.constraint(equalTo: autorLabel.bottomAnchor),
             imagePost.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor),
             imagePost.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imagePost.centerXAnchor.constraint(equalTo: centerXAnchor),
             imagePost.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imagePost.widthAnchor.constraint(equalToConstant: 800),
             imagePost.heightAnchor.constraint(equalToConstant: 800),
+            imagePost.widthAnchor.constraint(equalToConstant: 800),
             
-            descriptionLabel.topAnchor.constraint(equalTo: imagePost.bottomAnchor, constant: 16),
+            descriptionLabel.topAnchor.constraint(equalTo: imagePost.bottomAnchor, constant: -16),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             descriptionLabel.bottomAnchor.constraint(equalTo: stackForLabels.topAnchor),
             
-            stackForLabels.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
+            stackForLabels.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: -16),
             stackForLabels.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             stackForLabels.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             stackForLabels.centerXAnchor.constraint(equalTo: centerXAnchor),

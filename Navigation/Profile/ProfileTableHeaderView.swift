@@ -30,7 +30,7 @@ class ProfileTableHeaderView: UIView {
     private lazy var tableView: UITableView = {
         let tableView = UITableView.init(
             frame: .zero,
-            style: .plain
+            style: .grouped
         )
         
         tableView.rowHeight = UITableView.automaticDimension
@@ -133,10 +133,7 @@ class ProfileTableHeaderView: UIView {
         self.addSubview(statusLabel)
         self.addSubview(nameLabel)
         self.addSubview(tableView)
-        /*
-        tableView.addSubview(autorLabel)
-        tableView.addSubview(imagePost)
-         */
+        
         elementConstraint()
         
 

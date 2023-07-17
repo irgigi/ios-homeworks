@@ -23,6 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let secondNavController = UINavigationController(rootViewController: LogInViewController()) // было ProfileViewController()
         
+        let profileNavController = UINavigationController(rootViewController: ProfileViewController())
+        
         let postNavController = UINavigationController(rootViewController: PostViewController())
         
        // let infoNavController = UINavigationController(rootViewController: InfoViewController())
@@ -32,6 +34,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         secondNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "house"), tag: 1)
         
         postNavController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 2)
+        
+        profileNavController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 3)
         
         tabBarController.viewControllers = [firstNavController, secondNavController]
         

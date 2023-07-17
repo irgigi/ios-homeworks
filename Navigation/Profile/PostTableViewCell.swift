@@ -21,6 +21,7 @@ class PostTableViewCell: UITableViewCell {
     let imagePost: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .black
+        image.clipsToBounds = true
         image.contentMode = .scaleAspectFill
         return image
     }()

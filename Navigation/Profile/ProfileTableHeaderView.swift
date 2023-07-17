@@ -30,7 +30,7 @@ class ProfileTableHeaderView: UIView {
     lazy var tableView: UITableView = {
         let tableView = UITableView.init(
             frame: .zero,
-            style: .plain
+            style: .grouped
         )
         
         tableView.rowHeight = UITableView.automaticDimension
@@ -174,6 +174,8 @@ class ProfileTableHeaderView: UIView {
         
     }
     
+
+    
     func elementConstraint() {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -274,6 +276,24 @@ extension ProfileTableHeaderView: UITableViewDelegate, UITableViewDataSource {
         heightForHeaderInSection section: Int
     ) -> CGFloat {
         UITableView.automaticDimension
+    }
+  
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
+        if indexPath.section == 0 {
+            let controller = PhotosViewController()
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            var responder: UIResponder? = self
+            while responder != nil {
+                responder = responder?.next
+                if let viewController = responder as? UIViewController {
+                    viewController.navigationController?.pushViewController(controller, animated: true)
+                }
+            }
+        }
     }
     /*
     func tableView(

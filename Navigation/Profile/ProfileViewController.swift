@@ -9,7 +9,37 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     let profileTableHeaderView = ProfileTableHeaderView()
+    
+    enum CellReuseID: String {
+        case base = "BaseTableViewCell_ReuseID"
+        case custom = "CustomTableViewCell_ReuseID"
+    }
    
+    // MARK: - Data
+    
+    fileprivate let data = PostModel.make()
+    
+    // MARK: - table
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView.init(
+            frame: .zero,
+            style: .grouped
+        )
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        
+        
+        tableView.register(
+            PostTableViewCell.self,
+            forCellReuseIdentifier: CellReuseID.base.rawValue
+        )
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        
+        return tableView
+    }()
     
     
     override func viewDidLoad() {
@@ -19,6 +49,7 @@ class ProfileViewController: UIViewController {
         title = "Profile" 
        
         view.addSubview(profileTableHeaderView)
+        profileTableHeaderView.addSubview(tableView)
         setupConstraints()
     }
     
@@ -35,6 +66,8 @@ class ProfileViewController: UIViewController {
     func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
         profileTableHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             
             profileTableHeaderView.topAnchor.constraint(
@@ -62,4 +95,33 @@ class ProfileViewController: UIViewController {
      
 }
 
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        data.count
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: CellReuseID.base.rawValue,
+            for: indexPath
+        ) as? PostTableViewCell else {
+            fatalError("could not dequeueReusableCell")
+        }
+        cell.update(data[indexPath.row])
+        return cell
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        heightForHeaderInSection section: Int
+    ) -> CGFloat {
+        UITableView.automaticDimension
+    }
+    
+    
+}
 

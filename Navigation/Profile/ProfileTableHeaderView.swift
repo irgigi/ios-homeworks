@@ -11,41 +11,13 @@ class ProfileTableHeaderView: UIView {
     
     private var statusText:String
     
-    // MARK: - Data
-    
-    fileprivate let data = PostModel.make()
-    
-    enum CellReuseID: String {
-        case base = "BaseTableViewCell_ReuseID"
-        case custom = "CustomTableViewCell_ReuseID"
-    }
+   
     
     private enum HeaderFooterReuseID: String {
         case base = "TableSelectionFooterHeaderView_ReuseID"
     }
     
     
-    // MARK: - table
-    
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView.init(
-            frame: .zero,
-            style: .grouped
-        )
-        
-        tableView.rowHeight = UITableView.automaticDimension
-        
-        
-        tableView.register(
-            PostTableViewCell.self,
-            forCellReuseIdentifier: CellReuseID.base.rawValue
-        )
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        
-        return tableView
-    }()
     
     
     
@@ -132,7 +104,6 @@ class ProfileTableHeaderView: UIView {
         self.addSubview(textField)
         self.addSubview(statusLabel)
         self.addSubview(nameLabel)
-        self.addSubview(tableView)
         
         elementConstraint()
         
@@ -171,7 +142,7 @@ class ProfileTableHeaderView: UIView {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         bigButton.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
@@ -202,13 +173,7 @@ class ProfileTableHeaderView: UIView {
             bigButton.topAnchor.constraint(equalTo: textField.bottomAnchor),
             bigButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             bigButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            bigButton.heightAnchor.constraint(equalToConstant: 50),
-            
-            tableView.topAnchor.constraint(equalTo: bigButton.bottomAnchor, constant: 16),
-           // tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4)
+            bigButton.heightAnchor.constraint(equalToConstant: 50)
             
         
         ])
@@ -217,33 +182,6 @@ class ProfileTableHeaderView: UIView {
     
 }
 
-extension ProfileTableHeaderView: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        data.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: CellReuseID.base.rawValue,
-            for: indexPath
-        ) as? PostTableViewCell else {
-            fatalError("could not dequeueReusableCell")
-        }
-        cell.update(data[indexPath.row])
-        return cell
-    }
-    
-    func tableView(
-        _ tableView: UITableView,
-        heightForHeaderInSection section: Int
-    ) -> CGFloat {
-        UITableView.automaticDimension
-    }
-    
-    
-}
+
 
 

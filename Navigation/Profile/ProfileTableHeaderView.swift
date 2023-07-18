@@ -11,16 +11,6 @@ class ProfileTableHeaderView: UIView {
     
     private var statusText:String
     
-   
-    
-    private enum HeaderFooterReuseID: String {
-        case base = "TableSelectionFooterHeaderView_ReuseID"
-    }
-    
-    
-    
-    
-    
     
     // MARK: - Subviews
     
@@ -99,22 +89,24 @@ class ProfileTableHeaderView: UIView {
     override init(frame: CGRect) {
         statusText = ""
         super.init(frame: frame)
-        self.addSubview(imageView)
-        self.addSubview(bigButton)
-        self.addSubview(textField)
-        self.addSubview(statusLabel)
-        self.addSubview(nameLabel)
         
+        addSubviews()
         elementConstraint()
-        
-
-        
+    
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func addSubviews() {
+        
+        addSubview(imageView)
+        addSubview(bigButton)
+        addSubview(textField)
+        addSubview(statusLabel)
+        addSubview(nameLabel)
+    }
     
     @objc func statusTextChanged(_ textField: UITextField) {
         statusText = textField.text ?? ""
@@ -145,6 +137,7 @@ class ProfileTableHeaderView: UIView {
         
         
         NSLayoutConstraint.activate([
+
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             imageView.widthAnchor.constraint(equalToConstant: 120),

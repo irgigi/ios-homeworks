@@ -80,7 +80,7 @@ class ProfileViewController: UIViewController {
         profileTableHeaderView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
-     
+     /*
         NSLayoutConstraint.activate([
             
             profileTableHeaderView.topAnchor.constraint(
@@ -105,12 +105,12 @@ class ProfileViewController: UIViewController {
             //profileTableHeaderView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 220)
             
         ])
-        
+        */
        
       
         NSLayoutConstraint.activate([
             
-            tableView.topAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
@@ -161,14 +161,18 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         heightForHeaderInSection section: Int
     ) -> CGFloat {
-        UITableView.automaticDimension
+        return 250
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     func tableView(
         _ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-      /*
+      
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: HeaderFooterReuseID.base.rawValue
         ) as? ProfileTableHeaderView else {
@@ -176,9 +180,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return headerView
-       */
-        return profileTableHeaderView
+       
     }
+    
     
 }
 

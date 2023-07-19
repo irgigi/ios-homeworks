@@ -40,12 +40,12 @@ class ProfileViewController: UIViewController {
         
         tableView.setAndLayout(headerView: profileTableHeaderView)
         
-        /*
+        
         tableView.register(
             ProfileTableHeaderView.self,
             forHeaderFooterViewReuseIdentifier: HeaderFooterReuseID.base.rawValue
         )
-         */
+         
         tableView.delegate = self
         tableView.dataSource = self
         

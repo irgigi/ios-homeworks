@@ -168,7 +168,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-        
+      /*
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: HeaderFooterReuseID.base.rawValue
         ) as? ProfileTableHeaderView else {
@@ -176,6 +176,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return headerView
+       */
+        return profileTableHeaderView
     }
     
 }

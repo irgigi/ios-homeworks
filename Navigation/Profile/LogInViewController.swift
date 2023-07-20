@@ -76,6 +76,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return text
     }()
     
+    let spaceView = UIView()
+    
     lazy var logInButton: UIButton = {
         let button = UIButton()
         let bluePixelImage = UIImage(named: "blue_pixel")
@@ -112,6 +114,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         scrollFieldView.addSubview(logInButton)
         stackViewForFields.addArrangedSubview(loginField)
         stackViewForFields.addArrangedSubview(passwordField)
+        stackViewForFields.addArrangedSubview(spaceView)
         
         self.setupElements()
         
@@ -197,6 +200,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         logInButton.translatesAutoresizingMaskIntoConstraints = false
         stackViewForFields.translatesAutoresizingMaskIntoConstraints = false
+        spaceView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
@@ -221,16 +225,22 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             loginField.topAnchor.constraint(equalTo: stackViewForFields.topAnchor),
             loginField.leadingAnchor.constraint(equalTo: stackViewForFields.leadingAnchor),
             loginField.trailingAnchor.constraint(equalTo: stackViewForFields.trailingAnchor),
-            loginField.heightAnchor.constraint(equalToConstant: 50),
+           // loginField.heightAnchor.constraint(equalToConstant: 50),
             loginField.widthAnchor.constraint(equalTo: stackViewForFields.widthAnchor),
-            loginField.bottomAnchor.constraint(equalTo: passwordField.topAnchor),
-            //loginField.widthAnchor.constraint(equalToConstant: 300),
+            loginField.bottomAnchor.constraint(equalTo: spaceView.topAnchor),
+           
+            spaceView.heightAnchor.constraint(equalToConstant: 0.5),
+            spaceView.leadingAnchor.constraint(equalTo: stackViewForFields.leadingAnchor),
+            spaceView.trailingAnchor.constraint(equalTo: stackViewForFields.trailingAnchor),
+            spaceView.topAnchor.constraint(equalTo: loginField.bottomAnchor),
+            //spaceView.bottomAnchor.constraint(equalTo: passwordField.topAnchor),
+            
         
-            passwordField.topAnchor.constraint(equalTo: loginField.bottomAnchor),
+            passwordField.topAnchor.constraint(equalTo: spaceView.bottomAnchor),
             passwordField.leadingAnchor.constraint(equalTo: stackViewForFields.leadingAnchor),
             passwordField.trailingAnchor.constraint(equalTo: stackViewForFields.trailingAnchor),
             passwordField.widthAnchor.constraint(equalTo: stackViewForFields.widthAnchor),
-            passwordField.heightAnchor.constraint(equalToConstant: 50),
+           // passwordField.heightAnchor.constraint(equalToConstant: 50),
             passwordField.bottomAnchor.constraint(equalTo: stackViewForFields.bottomAnchor),
             
             logInButton.topAnchor.constraint(equalTo: stackViewForFields.bottomAnchor, constant: -16),

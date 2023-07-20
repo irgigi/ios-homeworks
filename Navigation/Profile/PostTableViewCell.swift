@@ -24,6 +24,7 @@ class PostTableViewCell: UITableViewCell {
         let image = UIImageView()
         let screenWidth = UIScreen.main.bounds.width
         image.backgroundColor = .black
+        image.clipsToBounds = true
         image.contentMode = .scaleAspectFill
       /*
         image.transform = CGAffineTransform(scaleX: UIScreen.main.bounds.width/image.bounds.width, y: UIScreen.main.bounds.width/image.bounds.width)
@@ -154,8 +155,8 @@ class PostTableViewCell: UITableViewCell {
             imagePost.leadingAnchor.constraint(equalTo: leadingAnchor),
             imagePost.centerXAnchor.constraint(equalTo: centerXAnchor),
             imagePost.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imagePost.heightAnchor.constraint(equalToConstant: 800),
-            imagePost.widthAnchor.constraint(equalToConstant: 800),
+            imagePost.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+            imagePost.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
             
             descriptionLabel.topAnchor.constraint(equalTo: imagePost.bottomAnchor, constant: -16),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),

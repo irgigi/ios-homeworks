@@ -34,9 +34,11 @@ class PhotosTableViewCell: UITableViewCell {
             reuseIdentifier: reuseIdentifier
         )
         
-      //  addSubview(imageCell)
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
-       // setupLayouts()
+        contentView.addSubview(collectionView)
+        setupLayouts()
     }
     
     required init?(coder: NSCoder) {
@@ -45,20 +47,20 @@ class PhotosTableViewCell: UITableViewCell {
     
     
     // MARK: - setup -
-   /*
+   
     private func setupLayouts() {
-        imageCell.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            imageCell.topAnchor.constraint(equalTo: topAnchor),
-            imageCell.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageCell.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageCell.bottomAnchor.constraint(equalTo: bottomAnchor)
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
    
     // MARK: - public -
-    
+    /*
     func setupImage(_ model: PostModel) {
         imageCell.image = UIImage(named: model.image)
     }
@@ -79,6 +81,7 @@ extension PhotosTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        data.count
+        return data.count
     }
+    
 }

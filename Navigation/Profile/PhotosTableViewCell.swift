@@ -5,26 +5,38 @@
 
 import UIKit
 
-class PhotosTableViewCell: UICollectionViewCell {
+class PhotosTableViewCell: UITableViewCell {
     
     
-    let imageCell: UIImageView = {
-        let image = UIImageView(frame: .zero)
-        let screenWidth = UIScreen.main.bounds.width
-        image.backgroundColor = .black
-        image.clipsToBounds = true
-        image.layer.cornerRadius = 6.0
-        image.contentMode = .scaleAspectFill
-        return image
+    let data = PostModel.make()
+    
+    
+    
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        collectionView.register(
+            CollectionViewCell.self,
+            forCellWithReuseIdentifier: "CollectionCell_ID")
+        
+        return collectionView
     }()
     
     
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
+        super.init(
+            style: .subtitle,
+            reuseIdentifier: reuseIdentifier
+        )
         
-        addSubview(imageCell)
+      //  addSubview(imageCell)
         
-        setupLayouts()
+       // setupLayouts()
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +45,7 @@ class PhotosTableViewCell: UICollectionViewCell {
     
     
     // MARK: - setup -
-    
+   /*
     private func setupLayouts() {
         imageCell.translatesAutoresizingMaskIntoConstraints = false
         
@@ -44,10 +56,29 @@ class PhotosTableViewCell: UICollectionViewCell {
             imageCell.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-    
+   
     // MARK: - public -
     
-    func setupImage(with model: PostModel) {
+    func setupImage(_ model: PostModel) {
         imageCell.image = UIImage(named: model.image)
+    }
+    */
+}
+
+extension PhotosTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "CollectionCell_ID",
+            for: indexPath
+        ) as? CollectionViewCell else {
+            fatalError("error collection cell")
+        }
+        cell.setupImage(data[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        data.count
     }
 }

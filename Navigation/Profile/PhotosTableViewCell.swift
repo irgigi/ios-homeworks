@@ -157,33 +157,34 @@ class PhotosTableViewCell: UITableViewCell {
             stackForImages.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             stackForImages.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             stackForImages.centerXAnchor.constraint(equalTo: centerXAnchor),
+            stackForImages.heightAnchor.constraint(equalToConstant: 100),
             
             image_1.topAnchor.constraint(equalTo: stackForImages.topAnchor),
             image_1.bottomAnchor.constraint(equalTo: stackForImages.bottomAnchor),
             image_1.leadingAnchor.constraint(equalTo: stackForImages.leadingAnchor),
             image_1.trailingAnchor.constraint(equalTo: image_2.leadingAnchor, constant: -8),
-            image_1.widthAnchor.constraint(equalToConstant: 100),
-            image_1.heightAnchor.constraint(equalToConstant: 100),
+            image_1.widthAnchor.constraint(equalToConstant: 80),
+            image_1.heightAnchor.constraint(equalTo: stackForImages.heightAnchor),
             
             image_2.topAnchor.constraint(equalTo: stackForImages.topAnchor),
             image_2.bottomAnchor.constraint(equalTo: stackForImages.bottomAnchor),
             image_2.leadingAnchor.constraint(equalTo: image_1.trailingAnchor),
             image_2.trailingAnchor.constraint(equalTo: image_3.leadingAnchor, constant: -8),
-            image_2.widthAnchor.constraint(equalToConstant: 100),
-            image_2.heightAnchor.constraint(equalToConstant: 100),
+            image_2.widthAnchor.constraint(equalToConstant: 80),
+            image_2.heightAnchor.constraint(equalTo: stackForImages.heightAnchor),
             
             image_3.topAnchor.constraint(equalTo: stackForImages.topAnchor),
             image_3.bottomAnchor.constraint(equalTo: stackForImages.bottomAnchor),
             image_3.leadingAnchor.constraint(equalTo: image_2.trailingAnchor, constant: 8),
             image_3.trailingAnchor.constraint(equalTo: image_4.leadingAnchor, constant: -8),
-            image_3.widthAnchor.constraint(equalToConstant: 100),
-            image_3.heightAnchor.constraint(equalToConstant: 100),
+            image_3.widthAnchor.constraint(equalToConstant: 80),
+            image_3.heightAnchor.constraint(equalTo: stackForImages.heightAnchor),
             
             image_4.topAnchor.constraint(equalTo: stackForImages.topAnchor),
             image_4.bottomAnchor.constraint(equalTo: stackForImages.bottomAnchor),
             image_4.leadingAnchor.constraint(equalTo: image_3.trailingAnchor),
-            image_4.widthAnchor.constraint(equalToConstant: 100),
-            image_4.heightAnchor.constraint(equalToConstant: 100),
+            image_4.widthAnchor.constraint(equalToConstant: 80),
+            image_4.heightAnchor.constraint(equalTo: stackForImages.heightAnchor),
             image_4.trailingAnchor.constraint(equalTo: stackForImages.trailingAnchor)
             
             

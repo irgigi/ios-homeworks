@@ -58,12 +58,19 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        #if DEBUG
         view.backgroundColor = .lightGray
+        #else
+        view.backgroundColor = .red
+        #endif
+        
         title = "Profile" 
        
         tableView.addSubview(profileTableHeaderView)
         view.addSubview(tableView)
         setupConstraints()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

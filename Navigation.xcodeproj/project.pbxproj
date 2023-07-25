@@ -16,7 +16,6 @@
 		865720152A3B246F00F6B3F6 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865720142A3B246F00F6B3F6 /* InfoViewController.swift */; };
 		865720172A3B252300F6B3F6 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865720162A3B252300F6B3F6 /* FeedViewController.swift */; };
 		865720192A3B25A600F6B3F6 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865720182A3B25A600F6B3F6 /* PostViewController.swift */; };
-		865A9B062A5673FF00929A10 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865A9B052A5673FF00929A10 /* Post.swift */; };
 		867ED7B62A597106001A1D22 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867ED7B52A597106001A1D22 /* PostTableViewCell.swift */; };
 		869F01FB2A349217007456E6 /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F01FA2A349217007456E6 /* ProfileTableHeaderView.swift */; };
 		869F01FD2A349500007456E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F01FC2A349500007456E6 /* ProfileViewController.swift */; };
@@ -26,6 +25,7 @@
 		86A13E602A6FAF0100B5EE83 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 86A13E502A6FAF0000B5EE83 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86A13E632A6FAF0100B5EE83 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A13E4E2A6FAF0000B5EE83 /* StorageService.framework */; };
 		86A13E642A6FAF0100B5EE83 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 86A13E4E2A6FAF0000B5EE83 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		86A13E6C2A6FB0FA00B5EE83 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865A9B052A5673FF00929A10 /* Post.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,7 +159,6 @@
 				869F01FA2A349217007456E6 /* ProfileTableHeaderView.swift */,
 				869F01FC2A349500007456E6 /* ProfileViewController.swift */,
 				863C03672A4B0F4C006C40EB /* LogInViewController.swift */,
-				865A9B052A5673FF00929A10 /* Post.swift */,
 				867ED7B52A597106001A1D22 /* PostTableViewCell.swift */,
 			);
 			path = Profile;
@@ -168,6 +167,7 @@
 		86A13E4F2A6FAF0000B5EE83 /* StorageService */ = {
 			isa = PBXGroup;
 			children = (
+				865A9B052A5673FF00929A10 /* Post.swift */,
 				86A13E502A6FAF0000B5EE83 /* StorageService.h */,
 				86A13E512A6FAF0000B5EE83 /* StorageService.docc */,
 			);
@@ -334,7 +334,6 @@
 				865720152A3B246F00F6B3F6 /* InfoViewController.swift in Sources */,
 				869F01FB2A349217007456E6 /* ProfileTableHeaderView.swift in Sources */,
 				865720172A3B252300F6B3F6 /* FeedViewController.swift in Sources */,
-				865A9B062A5673FF00929A10 /* Post.swift in Sources */,
 				867ED7B62A597106001A1D22 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86A13E522A6FAF0000B5EE83 /* StorageService.docc in Sources */,
+				86A13E6C2A6FB0FA00B5EE83 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +504,7 @@
 		861B236E2A2B5E180099CA6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -532,6 +533,7 @@
 		861B236F2A2B5E180099CA6D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;

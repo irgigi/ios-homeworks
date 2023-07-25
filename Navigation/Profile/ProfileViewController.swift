@@ -5,6 +5,7 @@
 //
 
 import UIKit
+import StorageService
 
 class ProfileViewController: UIViewController {
 

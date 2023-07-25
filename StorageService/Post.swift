@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct PostModel {
-    let author: String
-    let description: String
-    let image: String
-    let likes: Int
-    let views: Int
+public struct PostModel {
+    public let author: String
+    public let description: String
+    public let image: String
+    public let likes: Int
+    public let views: Int
 }
 
 extension PostModel {
-    static func make() -> [PostModel] {
+    public static func make() -> [PostModel] {
         [
             PostModel(author: "Felix",
                       description: "Me in 2 mounth",

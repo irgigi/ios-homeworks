@@ -4,6 +4,7 @@
 
 import UIKit
 import StorageService
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -27,6 +28,8 @@ class PostTableViewCell: UITableViewCell {
         image.backgroundColor = .black
         image.clipsToBounds = true
         image.contentMode = .scaleAspectFill
+       
+
       /*
         image.transform = CGAffineTransform(scaleX: UIScreen.main.bounds.width/image.bounds.width, y: UIScreen.main.bounds.width/image.bounds.width)
        */
@@ -78,13 +81,15 @@ class PostTableViewCell: UITableViewCell {
             style: .subtitle,
             reuseIdentifier: reuseIdentifier
         )
-        
+       
         stackForLabels.addArrangedSubview(likesLabel)
         stackForLabels.addArrangedSubview(viewsLabel)
      
         addSubviewInCell()
         
         consraintInCell()
+        
+     
 
 
       //  tuneView()

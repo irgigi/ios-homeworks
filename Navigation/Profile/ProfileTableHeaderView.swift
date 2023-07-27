@@ -5,6 +5,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileTableHeaderView: UITableViewHeaderFooterView {
   
@@ -92,6 +93,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         
         addSubviews()
         elementConstraint()
+        elementSetup()
     
     }
 
@@ -127,6 +129,48 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         
     }
     
+    private func elementSetup() {
+        imageView.snp.makeConstraints{ make in
+            make.top.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalTo(nameLabel.snp.leading).offset(-30)
+            make.width.equalTo(120)
+            make.height.equalTo(120)
+        }
+        
+        nameLabel.snp.makeConstraints{ make in
+            make.top.equalToSuperview().offset(27)
+            make.leading.equalTo(imageView.snp.trailing)
+            make.trailing.equalToSuperview().offset(16)
+            make.bottom.equalTo(statusLabel.snp.top).offset(-20)
+            make.height.equalTo(30)
+        }
+        
+        statusLabel.snp.makeConstraints{ make in
+            make.top.equalTo(nameLabel.snp.bottom)
+            make.leading.equalTo(imageView.snp.trailing).offset(30)
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalTo(textField.snp.top).offset(-10)
+            make.height.equalTo(20)
+        }
+        
+        textField.snp.makeConstraints{ make in
+            make.top.equalTo(statusLabel.snp.bottom)
+            make.leading.equalTo(imageView.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalTo(bigButton.snp.top).offset(-34)
+            make.width.equalTo(200)
+            make.height.equalTo(40)
+        }
+        
+        bigButton.snp.makeConstraints{ make in
+            make.top.equalTo(textField.snp.bottom)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(50)
+        }
+    }
+    
     func elementConstraint() {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -134,7 +178,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         bigButton.translatesAutoresizingMaskIntoConstraints = false
-        
+/*
         
         NSLayoutConstraint.activate([
 
@@ -143,26 +187,26 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
             imageView.widthAnchor.constraint(equalToConstant: 120),
             imageView.heightAnchor.constraint(equalToConstant: 120),
             imageView.trailingAnchor.constraint(equalTo: nameLabel.leadingAnchor, constant: -30),
-            
+
             nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
             nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
             nameLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor, constant: -20),
             nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
             nameLabel.heightAnchor.constraint(equalToConstant: 30),
-            
+
             statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             statusLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 30),
             statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             statusLabel.bottomAnchor.constraint(equalTo: textField.topAnchor, constant: -10),
             statusLabel.heightAnchor.constraint(equalToConstant: 20),
-            
+
             textField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor),
             textField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 16),
             textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             textField.bottomAnchor.constraint(equalTo: bigButton.topAnchor, constant: -34),
             textField.widthAnchor.constraint(equalToConstant: 200),
             textField.heightAnchor.constraint(equalToConstant: 40),
-            
+
             bigButton.topAnchor.constraint(equalTo: textField.bottomAnchor),
             bigButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             bigButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -170,7 +214,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
             
         
         ])
-        
+*/
     }
     
 }

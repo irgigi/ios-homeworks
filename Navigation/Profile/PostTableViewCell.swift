@@ -127,11 +127,21 @@ class PostTableViewCell: UITableViewCell {
         }
         
     }
+    
+  
 
     func update(_ model: PostModel) {
         
+        let img_processor = ImageProcessor()
+        let img = UIImage(named: model.image) ?? UIImage()
+        img_processor.processImage(sourceImage: img, filter: .sepia(intensity: 0.4)) {
+            processedImage in
+         
+                imagePost.image = processedImage
+            
+        }
         autorLabel.text = model.author
-        imagePost.image = UIImage(named: model.image)
+        //imagePost.image = UIImage(named: model.image)
         descriptionLabel.text = model.description
         likesLabel.text! += String(describing: model.likes)
         viewsLabel.text! += String(describing: model.views)

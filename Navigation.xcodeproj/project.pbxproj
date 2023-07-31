@@ -28,6 +28,7 @@
 		86A13E632A6FAF0100B5EE83 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A13E4E2A6FAF0000B5EE83 /* StorageService.framework */; };
 		86A13E642A6FAF0100B5EE83 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 86A13E4E2A6FAF0000B5EE83 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		86A13E6C2A6FB0FA00B5EE83 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865A9B052A5673FF00929A10 /* Post.swift */; };
+		86E9D1892A77EBAC00B28652 /* Pods-Navigation.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 65AFFD407F54D740D29EA4E8 /* Pods-Navigation.release.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -333,6 +334,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86E9D1892A77EBAC00B28652 /* Pods-Navigation.release.xcconfig in Resources */,
 				861B23692A2B5E180099CA6D /* LaunchScreen.storyboard in Resources */,
 				861B23662A2B5E180099CA6D /* Assets.xcassets in Resources */,
 			);

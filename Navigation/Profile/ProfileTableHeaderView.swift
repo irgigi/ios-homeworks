@@ -178,43 +178,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         bigButton.translatesAutoresizingMaskIntoConstraints = false
-/*
-        
-        NSLayoutConstraint.activate([
 
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            imageView.widthAnchor.constraint(equalToConstant: 120),
-            imageView.heightAnchor.constraint(equalToConstant: 120),
-            imageView.trailingAnchor.constraint(equalTo: nameLabel.leadingAnchor, constant: -30),
-
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
-            nameLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor, constant: -20),
-            nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
-            nameLabel.heightAnchor.constraint(equalToConstant: 30),
-
-            statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            statusLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 30),
-            statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            statusLabel.bottomAnchor.constraint(equalTo: textField.topAnchor, constant: -10),
-            statusLabel.heightAnchor.constraint(equalToConstant: 20),
-
-            textField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor),
-            textField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 16),
-            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            textField.bottomAnchor.constraint(equalTo: bigButton.topAnchor, constant: -34),
-            textField.widthAnchor.constraint(equalToConstant: 200),
-            textField.heightAnchor.constraint(equalToConstant: 40),
-
-            bigButton.topAnchor.constraint(equalTo: textField.bottomAnchor),
-            bigButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            bigButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            bigButton.heightAnchor.constraint(equalToConstant: 50)
-            
-        
-        ])
-*/
     }
     
 }

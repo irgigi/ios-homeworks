@@ -80,33 +80,7 @@ class ProfileViewController: UIViewController {
         profileTableHeaderView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
-     /*
-        NSLayoutConstraint.activate([
-            
-            profileTableHeaderView.topAnchor.constraint(
-                equalTo: tableView.topAnchor,
-                constant: 10
-            ),
-            
-            profileTableHeaderView.bottomAnchor.constraint(
-                equalTo: tableView.bottomAnchor,
-                constant: 10
-            ),
-            
-            profileTableHeaderView.leadingAnchor.constraint(
-                equalTo: tableView.leadingAnchor,
-                constant: 0
-            ),
-            profileTableHeaderView.trailingAnchor.constraint(
-                equalTo: tableView.trailingAnchor,
-                constant: 0
-            ),
-            
-            //profileTableHeaderView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 220)
-            
-        ])
-        */
-       
+   
       
         NSLayoutConstraint.activate([
             

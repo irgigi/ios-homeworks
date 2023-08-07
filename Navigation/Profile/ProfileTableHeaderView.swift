@@ -6,8 +6,9 @@
 
 import UIKit
 
+var userProfile: User? // вынесла за класс, потому что по-другому не получилось
+
 class ProfileTableHeaderView: UITableViewHeaderFooterView {
-  
     
     private var statusText:String
     
@@ -16,7 +17,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
     
     let imageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Felix")
+        image.image = userProfile?.avatar
         image.contentMode = .scaleToFill
         image.clipsToBounds = true
         
@@ -30,9 +31,10 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
 
     let nameLabel: UILabel = {
         let label = UILabel()
+        var user: User?
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
-        label.text = "Cat Felix"
+        label.text = userProfile?.name
         label.numberOfLines = 0
         
         return label
@@ -41,9 +43,10 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
 
     let statusLabel: UILabel = {
         let label = UILabel()
+        var user: User?
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = UIColor.gray
-        label.text = "My status"
+        label.text = userProfile?.status
         
         return label
     }()
@@ -87,6 +90,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
     }()
 
     override init(reuseIdentifier: String?) {
+        
         statusText = ""
         super.init(reuseIdentifier: reuseIdentifier)
         

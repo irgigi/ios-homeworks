@@ -32,7 +32,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         text.backgroundColor = .systemGray6
         text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        text.placeholder = "Email of phone"
+        text.placeholder = "login"
         text.textColor = UIColor.black
         text.tintColor = UIColor(named: "MyColor")
         text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
@@ -46,7 +46,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         text.layer.borderWidth = 0.5
         text.layer.cornerRadius = 10
         
-        //text.delegate = self
         
         return text
     }()
@@ -71,7 +70,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         text.layer.borderWidth = 0.5
         text.layer.cornerRadius = 10
         
-        //text.delegate = self
         
         return text
     }()
@@ -88,7 +86,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         button.clipsToBounds = true
         button.layer.cornerRadius = 10.0
         button.addTarget(self, action: #selector(buttonToProfile), for: .touchUpInside)
-        
         return button
     }()
     
@@ -175,9 +172,29 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         notificationCenter.removeObserver(self)
     }
     
+    @objc func getLogin() -> String {
+        if let login = loginField.text {
+            return login
+        }
+        return "no login"
+    }
+    
     @objc func buttonToProfile() {
-        let profileViewController = ProfileViewController()
-        navigationController?.pushViewController(profileViewController, animated: true)
+        // по идее должна быть БД, не поняла где хранить данные о пользователе
+        let user1 = User(login: "felix15", name: "Cat Felix", status: "hello, world", avatar: (UIImage(named: "Felix") ?? UIImage()))
+        //
+        if let login = loginField.text {
+            
+            if user1.login == login {
+                let profileViewController = ProfileViewController()
+                let profile = ProfileTableHeaderView()
+                userProfile = user1
+                navigationController?.pushViewController(profileViewController, animated: true)
+            } else {
+                print("ERROR")
+            }
+        }
+        
     }
     
     @objc func willShowKeyboard(_ notification: NSNotification) {

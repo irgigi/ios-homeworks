@@ -20,6 +20,9 @@
 		867ED7B62A597106001A1D22 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867ED7B52A597106001A1D22 /* PostTableViewCell.swift */; };
 		869F01FB2A349217007456E6 /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F01FA2A349217007456E6 /* ProfileTableHeaderView.swift */; };
 		869F01FD2A349500007456E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F01FC2A349500007456E6 /* ProfileViewController.swift */; };
+		86D732062A7FF0AB0030E27E /* UserServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D732052A7FF0AB0030E27E /* UserServiceProtocol.swift */; };
+		86D732082A7FF1000030E27E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D732072A7FF1000030E27E /* User.swift */; };
+		86D7320A2A7FFEE60030E27E /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D732092A7FFEE60030E27E /* CurrentUserService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		867ED7B52A597106001A1D22 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		869F01FA2A349217007456E6 /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
 		869F01FC2A349500007456E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		86D732052A7FF0AB0030E27E /* UserServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceProtocol.swift; sourceTree = "<group>"; };
+		86D732072A7FF1000030E27E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		86D732092A7FFEE60030E27E /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,9 @@
 				863C03672A4B0F4C006C40EB /* LogInViewController.swift */,
 				865A9B052A5673FF00929A10 /* Post.swift */,
 				867ED7B52A597106001A1D22 /* PostTableViewCell.swift */,
+				86D732052A7FF0AB0030E27E /* UserServiceProtocol.swift */,
+				86D732072A7FF1000030E27E /* User.swift */,
+				86D732092A7FFEE60030E27E /* CurrentUserService.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -166,12 +175,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86D732082A7FF1000030E27E /* User.swift in Sources */,
 				865720192A3B25A600F6B3F6 /* PostViewController.swift in Sources */,
 				861B23612A2B5E160099CA6D /* ViewController.swift in Sources */,
+				86D732062A7FF0AB0030E27E /* UserServiceProtocol.swift in Sources */,
 				863C03682A4B0F4C006C40EB /* LogInViewController.swift in Sources */,
 				861B235D2A2B5E160099CA6D /* AppDelegate.swift in Sources */,
 				869F01FD2A349500007456E6 /* ProfileViewController.swift in Sources */,
 				861B235F2A2B5E160099CA6D /* SceneDelegate.swift in Sources */,
+				86D7320A2A7FFEE60030E27E /* CurrentUserService.swift in Sources */,
 				865720152A3B246F00F6B3F6 /* InfoViewController.swift in Sources */,
 				869F01FB2A349217007456E6 /* ProfileTableHeaderView.swift in Sources */,
 				865720172A3B252300F6B3F6 /* FeedViewController.swift in Sources */,

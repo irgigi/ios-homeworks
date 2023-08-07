@@ -6,6 +6,7 @@
 
 import UIKit
 
+// MARK: - USER
 var userProfile: User? // вынесла за класс, потому что по-другому не получилось
 
 class ProfileTableHeaderView: UITableViewHeaderFooterView {

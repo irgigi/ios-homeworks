@@ -180,19 +180,25 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func buttonToProfile() {
-        // по идее должна быть БД, не поняла где хранить данные о пользователе
-        let user1 = User(login: "felix15", name: "Cat Felix", status: "hello, world", avatar: (UIImage(named: "Felix") ?? UIImage()))
-        //
+        let current = CurrentUserService()
+        let profileViewController = ProfileViewController()
+
         if let login = loginField.text {
-            
-            if user1.login == login {
-                let profileViewController = ProfileViewController()
-                let profile = ProfileTableHeaderView()
-                userProfile = user1
+            #if DEBUG
+            let test = TestUserService()
+            if test.userTest?.login == login {
+                userProfile = test.userTest
+                navigationController?.pushViewController(profileViewController, animated: true)
+            }
+            #else
+            if current.user1.login == login {
+                
+                userProfile = current.user1
                 navigationController?.pushViewController(profileViewController, animated: true)
             } else {
                 print("ERROR")
             }
+            #endif
         }
         
     }

@@ -7,7 +7,8 @@ import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
-    var user = ProfileTableHeaderView()
+    var loginDelegate: LoginViewControllerDelegate?
+
     
     
     private lazy var scrollFieldView: UIScrollView = {
@@ -47,6 +48,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         text.layer.borderColor = UIColor.lightGray.cgColor
         text.layer.borderWidth = 0.5
         text.layer.cornerRadius = 10
+        text.tag = 0
         
         
         return text
@@ -71,7 +73,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         text.layer.borderColor = UIColor.lightGray.cgColor
         text.layer.borderWidth = 0.5
         text.layer.cornerRadius = 10
-        
+        text.tag = 1
         
         return text
     }()
@@ -118,17 +120,29 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.setupElements()
         
         self.loginField.delegate = self
+        self.passwordField.delegate = self
         
         
 
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = view.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    
+    /*
     func textFieldShouldReturn(
         _ textField: UITextField
     ) -> Bool {
         return loginField.resignFirstResponder()
     }
-    
+    */
     override func touchesBegan(_ textField: Set<UITouch>, with event: UIEvent?) {
         self.scrollFieldView.endEditing(true)
     }
@@ -182,10 +196,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func buttonToProfile() {
-        let current = CurrentUserService()
+       
         let profileViewController = ProfileViewController()
+        let logInspector = LoginInspector()
 
-          if let login = loginField.text {
+        guard let login = loginField.text, let password = passwordField.text else {
+            
+            return
+            
+        }
+        
+/*
 #if DEBUG
               let test = TestUserService()
               if test.userTest?.login == login {
@@ -193,6 +214,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                   navigationController?.pushViewController(profileViewController, animated: true)
               }
 #else
+              let current = CurrentUserService()
               if current.currentUser?.login == login {
                   
                   ProfileTableHeaderView.userProfile = current.currentUser
@@ -200,9 +222,22 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
               } else {
                   print("ERROR")
               }
-              #endif
-          }
+#endif
+ */
+        let loginResult = logInspector.check(login, password)
+        
+        if loginResult {
+            let current = CurrentUserService()
+            ProfileTableHeaderView.userProfile = current.currentUser
+            navigationController?.pushViewController(profileViewController, animated: true)
+        } else {
+            let alert = UIAlertController(title: "Unknown login or password", message: "Please, enter correct user login/password", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true)
+        }
+            
           
+
       }
     
     @objc func willShowKeyboard(_ notification: NSNotification) {

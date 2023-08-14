@@ -13,7 +13,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
     
     static var userProfile: User?
     private var statusText:String
-    
+    private var inspector = LoginInspector()
     
     // MARK: - Subviews
     

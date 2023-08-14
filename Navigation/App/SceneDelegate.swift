@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return } //добавили scene вместо _
         let window = UIWindow(windowScene: scene) //экземпляр класса window
-        
+       
         let tabBarController = UITabBarController()
         
         let firstNavController = UINavigationController(rootViewController: FeedViewController()) //
@@ -34,6 +34,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         postNavController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 2)
         
         tabBarController.viewControllers = [firstNavController, secondNavController]
+        
+        //new
+        let loginViewController = LogInViewController()
+        let loginInspector = LoginInspector()
+        
+        loginViewController.loginDelegate = loginInspector
+        
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

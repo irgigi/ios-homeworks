@@ -7,10 +7,11 @@
 import UIKit
 
 // MARK: - USER
-var userProfile: User? // вынесла за класс, потому что по-другому не получилось
+
 
 class ProfileTableHeaderView: UITableViewHeaderFooterView {
     
+    static var userProfile: User?
     private var statusText:String
     
     
@@ -94,6 +95,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         
         statusText = ""
         super.init(reuseIdentifier: reuseIdentifier)
+       
         
         addSubviews()
         elementConstraint()

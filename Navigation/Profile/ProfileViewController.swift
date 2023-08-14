@@ -10,6 +10,7 @@ class ProfileViewController: UIViewController {
 
     let profileTableHeaderView = ProfileTableHeaderView()
     
+    
     enum CellReuseID: String {
         case base = "BaseTableViewCell_ReuseID"
         case custom = "CustomTableViewCell_ReuseID"

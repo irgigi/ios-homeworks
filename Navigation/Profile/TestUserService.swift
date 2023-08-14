@@ -12,11 +12,17 @@ class TestUserService: UserServiceProtocol {
    
    
     
-    func getUserLogin(_ login: String) -> User? {
+    func getUser(_ login: String) -> User? {
+        /*
         guard let userTest = userTest, userTest.login == login else {
             return nil
         }
         return userTest
+         */
+        // проще:
+        
+        return userTest?.login == login ? userTest: nil
+        
     }
     
     

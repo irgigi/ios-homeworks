@@ -7,6 +7,8 @@ import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
+    var user = ProfileTableHeaderView()
+    
     
     private lazy var scrollFieldView: UIScrollView = {
         let scrollFieldView = UIScrollView()
@@ -179,29 +181,29 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return "no login"
     }
     
-    @objc func buttonToProfile() {
+    @objc private func buttonToProfile() {
         let current = CurrentUserService()
         let profileViewController = ProfileViewController()
 
-        if let login = loginField.text {
-            #if DEBUG
-            let test = TestUserService()
-            if test.userTest?.login == login {
-                userProfile = test.userTest
-                navigationController?.pushViewController(profileViewController, animated: true)
-            }
-            #else
-            if current.user1.login == login {
-                
-                userProfile = current.user1
-                navigationController?.pushViewController(profileViewController, animated: true)
-            } else {
-                print("ERROR")
-            }
-            #endif
-        }
-        
-    }
+          if let login = loginField.text {
+#if DEBUG
+              let test = TestUserService()
+              if test.userTest?.login == login {
+                  ProfileTableHeaderView.userProfile = test.userTest
+                  navigationController?.pushViewController(profileViewController, animated: true)
+              }
+#else
+              if current.currentUser?.login == login {
+                  
+                  ProfileTableHeaderView.userProfile = current.currentUser
+                  navigationController?.pushViewController(profileViewController, animated: true)
+              } else {
+                  print("ERROR")
+              }
+              #endif
+          }
+          
+      }
     
     @objc func willShowKeyboard(_ notification: NSNotification) {
         

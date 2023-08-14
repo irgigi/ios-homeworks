@@ -11,11 +11,16 @@ class CurrentUserService: UserServiceProtocol {
     var currentUser: User? = User(login: "felix15", name: "Cat Felix", status: "hello, world", avatar: (UIImage(named: "Felix") ?? UIImage()))
     
  
-    func getUserLogin(_ login: String) -> User? {
+    func getUser(_ login: String) -> User? {
+        /*
         guard let currentUser = currentUser, currentUser.login == login else {
             return nil
         }
         return currentUser
+         */
+        // проще:
+        
+        return currentUser?.login == login ? currentUser: nil
     }
     
 }

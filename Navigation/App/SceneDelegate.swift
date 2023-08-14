@@ -35,11 +35,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         tabBarController.viewControllers = [firstNavController, secondNavController]
         
-        //new
+        //new 1
         let loginViewController = LogInViewController()
-        let loginInspector = LoginInspector()
+        var loginInspector = LoginInspector()
         
         loginViewController.loginDelegate = loginInspector
+        
+        //new 2
+        let loginFactory: LoginFactory = MyLogInFactory()
+        loginInspector = loginFactory.makeLoginInspector()
         
         
         window.rootViewController = tabBarController

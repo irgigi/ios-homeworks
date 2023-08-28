@@ -4,8 +4,12 @@
 
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
+
+    var imagePublisherFacade: ImagePublisherFacade = ImagePublisherFacade()
+    var photos: [UIImage] = []
     
     fileprivate lazy var profile: [Profile] = Profile.make()
     
@@ -29,12 +33,21 @@ class PhotosViewController: UIViewController {
         return collectionView
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        imagePublisherFacade.subscribe(self)
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 11)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Photo Gallery"
         view.backgroundColor = .white
         setupCollectionView()
         setupLayouts()
+        imagePublisherFacade.removeSubscription(for: self)
+        imagePublisherFacade.rechargeImageLibrary()
+        
         
     }
     
@@ -59,7 +72,17 @@ class PhotosViewController: UIViewController {
     }
 }
 
-extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
+    
+    
+    
+    func receive(images: [UIImage]) {
+        self.photos = images
+        self.collectionView.reloadData()
+    
+    }
+    
+    
     
     func collectionView(
         _ collectionView: UICollectionView,
@@ -76,8 +99,9 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
             withReuseIdentifier: CellID.base.rawValue,
             for: indexPath) as! PhotosCollectionViewCell
         
-        let prof = profile[indexPath.row]
-        cell.setup(with: prof)
+        //let prof = profile[indexPath.row]
+        //cell.setup(with: prof)
+        cell.profileImageView.image = photos.randomElement()
         return cell
     }
     
@@ -117,3 +141,5 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
         spacing
     }
 }
+
+

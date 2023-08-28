@@ -8,7 +8,7 @@ import UIKit
 class PhotosCollectionViewCell: UICollectionViewCell {
 
     
-    private lazy var profileImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true

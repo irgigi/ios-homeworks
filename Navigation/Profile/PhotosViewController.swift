@@ -8,7 +8,9 @@ import iOSIntPackage
 
 class PhotosViewController: UIViewController {
 
-    var imagePublisherFacade: ImagePublisherFacade = ImagePublisherFacade()
+    let imagePublisherFacade = ImagePublisherFacade()
+    
+    // массив для загрузки полученных картинок
     var photos: [UIImage] = []
     
     fileprivate lazy var profile: [Profile] = Profile.make()
@@ -35,8 +37,19 @@ class PhotosViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        imagePublisherFacade.subscribe(self)
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 11)
+        
+        //подготовка перед отображением
+        imagePublisherFacade.subscribe(self) //подписка
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 21) //загрузка с задержкой
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        //завершающие операции,когда представление исчезло с экрана
+        imagePublisherFacade.removeSubscription(for: self) //удаление подписки
+        imagePublisherFacade.rechargeImageLibrary() //очистка библиотеки загруженных фото
+        
     }
     
     override func viewDidLoad() {
@@ -45,10 +58,7 @@ class PhotosViewController: UIViewController {
         view.backgroundColor = .white
         setupCollectionView()
         setupLayouts()
-        imagePublisherFacade.removeSubscription(for: self)
-        imagePublisherFacade.rechargeImageLibrary()
-        
-        
+
     }
     
     private func setupCollectionView() {
@@ -77,18 +87,18 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
     
     
     func receive(images: [UIImage]) {
-        self.photos = images
-        self.collectionView.reloadData()
+        self.photos = images //загружаем в массив полученные фото
+        self.collectionView.reloadData() //обновление
     
     }
-    
     
     
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        profile.count
+        photos.count // количество ячеек в секции
+        //profile.count - было
     }
     
     func collectionView(
@@ -101,7 +111,7 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
         
         //let prof = profile[indexPath.row]
         //cell.setup(with: prof)
-        cell.profileImageView.image = photos.randomElement()
+        cell.profileImageView.image = photos[indexPath.row]  //размещение картинок
         return cell
     }
     

@@ -15,6 +15,8 @@ class PhotosViewController: UIViewController {
     
     fileprivate lazy var profile: [Profile] = Profile.make()
     
+    
+    
     let spacing = 8.0
     
     enum CellID: String {
@@ -37,10 +39,13 @@ class PhotosViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        //загрузка своих фото в массив
+        for i in 0...profile.count-1 {
+            photos.append(UIImage(imageLiteralResourceName: profile[i].img))
+        }
         //подготовка перед отображением
         imagePublisherFacade.subscribe(self) //подписка
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 21) //загрузка с задержкой
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 21, userImages: photos) //загрузка с задержкой
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -58,6 +63,8 @@ class PhotosViewController: UIViewController {
         view.backgroundColor = .white
         setupCollectionView()
         setupLayouts()
+        
+
 
     }
     

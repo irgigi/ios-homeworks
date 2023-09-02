@@ -129,7 +129,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         }
         
         //let button = UIButton()
-        let button = CustomButton(title: "blue_pixel", titleColor: .white, action: buttonAction)
+        let button = CustomButton(title: "Log In", titleColor: .white, action: buttonAction)
         let bluePixelImage = UIImage(named: "blue_pixel")
         button.setBackgroundImage(bluePixelImage, for: .normal)
         button.backgroundImage(for: .normal)

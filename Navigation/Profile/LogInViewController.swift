@@ -83,15 +83,62 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     let spaceView = UIView()
     
     lazy var logInButton: UIButton = {
-        let button = UIButton()
+        var buttonAction: () -> Void = {
+            
+            let profileViewController = ProfileViewController()
+            let logInspector = LoginInspector()
+
+            guard let login = self.loginField.text, let password = self.passwordField.text else {
+                
+                return
+                
+            }
+            
+    /*
+    #if DEBUG
+                  let test = TestUserService()
+                  if test.userTest?.login == login {
+                      ProfileTableHeaderView.userProfile = test.userTest
+                      navigationController?.pushViewController(profileViewController, animated: true)
+                  }
+    #else
+                  let current = CurrentUserService()
+                  if current.currentUser?.login == login {
+                      
+                      ProfileTableHeaderView.userProfile = current.currentUser
+                      navigationController?.pushViewController(profileViewController, animated: true)
+                  } else {
+                      print("ERROR")
+                  }
+    #endif
+     */
+            let loginResult = logInspector.check(login, password)
+            
+            if loginResult {
+                let current = CurrentUserService()
+                ProfileTableHeaderView.userProfile = current.currentUser
+                self.navigationController?.pushViewController(profileViewController, animated: true)
+            } else {
+                let alert = UIAlertController(title: "Unknown login or password", message: "Please, enter correct user login/password", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                self.present(alert, animated: true)
+            }
+                
+              
+            
+        }
+        
+        //let button = UIButton()
+        let button = CustomButton(title: "blue_pixel", titleColor: .white, action: buttonAction)
         let bluePixelImage = UIImage(named: "blue_pixel")
         button.setBackgroundImage(bluePixelImage, for: .normal)
         button.backgroundImage(for: .normal)
-        button.setTitle("Log In", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        //button.setTitle("Log In", for: .normal)
+        //button.setTitleColor(.white, for: .normal)
         button.clipsToBounds = true
         button.layer.cornerRadius = 10.0
-        button.addTarget(self, action: #selector(buttonToProfile), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(buttonToProfile), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -196,7 +243,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         }
         return "no login"
     }
-    
+  /*
     @objc private func buttonToProfile() {
        
         let profileViewController = ProfileViewController()
@@ -241,7 +288,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
           
 
       }
-    
+   */
     @objc func willShowKeyboard(_ notification: NSNotification) {
         
         let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.height
@@ -260,7 +307,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         vkView.translatesAutoresizingMaskIntoConstraints = false
         loginField.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
-        logInButton.translatesAutoresizingMaskIntoConstraints = false
         stackViewForFields.translatesAutoresizingMaskIntoConstraints = false
         spaceView.translatesAutoresizingMaskIntoConstraints = false
         

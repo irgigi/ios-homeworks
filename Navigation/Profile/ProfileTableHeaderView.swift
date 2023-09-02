@@ -15,6 +15,8 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
     private var statusText:String
     private var inspector = LoginInspector()
     
+
+    
     // MARK: - Subviews
     
     let imageView: UIImageView = {
@@ -71,22 +73,29 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
     }()
     
     lazy var bigButton: UIButton = {
-        let button = UIButton(
-            frame: CGRect(
-                x: 0,
-                y: 0,
-                width: 0,
-                height: 0
-            )
-        )
-        button.setTitle("Set status", for: .normal)
+        //let button = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        
+        var buttonAction: () -> Void = {
+            if let showText = self.textField.text {
+                print(showText)
+            }
+            
+            if self.statusText .isEmpty {
+                self.statusLabel.text = self.statusLabel.text
+            } else {
+                self.statusLabel.text = self.statusText
+            }
+        }
+
+        let button = CustomButton(title: "Set status", titleColor: .white, action: buttonAction)
+        //button.setTitle("Set status", for: .normal)
         button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
+        //button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 5
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
     
         return(button)
     }()
@@ -95,7 +104,6 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         
         statusText = ""
         super.init(reuseIdentifier: reuseIdentifier)
-       
         
         addSubviews()
         elementConstraint()
@@ -119,7 +127,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         statusText = textField.text ?? ""
         
     }
-    
+    /*
     @objc func buttonPressed(_ sender: UIButton) {
        
         if let showText = textField.text {
@@ -133,7 +141,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         }
         
     }
-    
+    */
     func elementConstraint() {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false

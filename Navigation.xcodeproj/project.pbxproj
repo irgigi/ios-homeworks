@@ -29,6 +29,7 @@
 		86815E2F2A8A739F00BCA8C8 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86815E2E2A8A739F00BCA8C8 /* LoginFactory.swift */; };
 		86815E312A8A745500BCA8C8 /* MyLogInFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86815E302A8A745500BCA8C8 /* MyLogInFactory.swift */; };
 		8689B4AF2AA34E7E00715820 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8689B4AE2AA34E7E00715820 /* CustomButton.swift */; };
+		8689B4B12AA396E000715820 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8689B4B02AA396E000715820 /* FeedModel.swift */; };
 		8694E3B92A98B7D800B1F738 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 8694E3B82A98B7D800B1F738 /* iOSIntPackage */; };
 		869F01FB2A349217007456E6 /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F01FA2A349217007456E6 /* ProfileTableHeaderView.swift */; };
 		869F01FD2A349500007456E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F01FC2A349500007456E6 /* ProfileViewController.swift */; };
@@ -63,6 +64,7 @@
 		86815E2E2A8A739F00BCA8C8 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		86815E302A8A745500BCA8C8 /* MyLogInFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLogInFactory.swift; sourceTree = "<group>"; };
 		8689B4AE2AA34E7E00715820 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		8689B4B02AA396E000715820 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		869F01FA2A349217007456E6 /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
 		869F01FC2A349500007456E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		86B11EC92A8BD614000D994E /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				865A9B052A5673FF00929A10 /* Post.swift */,
 				865FE4662A90E87D009614BB /* Profile.swift */,
+				8689B4B02AA396E000715820 /* FeedModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86D732082A7FF1000030E27E /* User.swift in Sources */,
+				8689B4B12AA396E000715820 /* FeedModel.swift in Sources */,
 				865FE4672A90E87D009614BB /* Profile.swift in Sources */,
 				8689B4AF2AA34E7E00715820 /* CustomButton.swift in Sources */,
 				865720192A3B25A600F6B3F6 /* PostViewController.swift in Sources */,

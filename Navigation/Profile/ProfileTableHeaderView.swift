@@ -72,8 +72,8 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         return text
     }()
     
-    lazy var bigButton: UIButton = {
-        //let button = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    
+    lazy var bigButton: CustomButton = {
         
         var buttonAction: () -> Void = {
             if let showText = self.textField.text {
@@ -86,18 +86,14 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
                 self.statusLabel.text = self.statusText
             }
         }
-
-        let button = CustomButton(title: "Set status", titleColor: .white, action: buttonAction)
-        //button.setTitle("Set status", for: .normal)
+        
+        var button = CustomButton(title: "Set status", titleColor: .white, action: buttonAction)
         button.backgroundColor = .systemBlue
-        //button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 5
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        //button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-    
-        return(button)
+        return button
     }()
 
     override init(reuseIdentifier: String?) {
@@ -107,6 +103,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         
         addSubviews()
         elementConstraint()
+        
     
     }
 
@@ -115,7 +112,6 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
     }
     
     func addSubviews() {
-        
         addSubview(imageView)
         addSubview(bigButton)
         addSubview(textField)
@@ -127,21 +123,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         statusText = textField.text ?? ""
         
     }
-    /*
-    @objc func buttonPressed(_ sender: UIButton) {
-       
-        if let showText = textField.text {
-            print(showText)
-        }
-        
-        if statusText .isEmpty {
-            statusLabel.text = statusLabel.text
-        } else {
-            statusLabel.text = statusText
-        }
-        
-    }
-    */
+
     func elementConstraint() {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false

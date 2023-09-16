@@ -13,7 +13,7 @@ struct Profile {
 
 extension Profile {
     static func make() -> [Profile] {
-        [
+        return [
         (Profile(img: "felix1")),
         (Profile(img: "felix2")),
         (Profile(img: "felix3")),

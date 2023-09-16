@@ -13,9 +13,10 @@ class PhotosViewController: UIViewController {
     // массив для загрузки полученных картинок
     var photos: [UIImage] = []
     
-    fileprivate lazy var profile: [Profile] = Profile.make()
+   // fileprivate lazy var profile: [Profile] = Profile.make()  было
     
-    
+    //вьюмодель
+    let profileViewModel = ProfileViewModel()
     
     let spacing = 8.0
     
@@ -37,11 +38,13 @@ class PhotosViewController: UIViewController {
         return collectionView
     }()
     
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //загрузка своих фото в массив
-        for i in 0...profile.count-1 {
-            photos.append(UIImage(imageLiteralResourceName: profile[i].img))
+        for i in 0...profileViewModel.numberOfProfiles()-1 {
+            let img = profileViewModel.profile(at: i)
+            photos.append(UIImage(imageLiteralResourceName: img.img))
         }
         //подготовка перед отображением
         imagePublisherFacade.subscribe(self) //подписка
@@ -63,11 +66,9 @@ class PhotosViewController: UIViewController {
         view.backgroundColor = .white
         setupCollectionView()
         setupLayouts()
-        
-
-
+      
     }
-    
+
     private func setupCollectionView() {
         view.addSubview(collectionView)
         collectionView.dataSource = self
@@ -77,6 +78,7 @@ class PhotosViewController: UIViewController {
     private func setupLayouts() {
         let sefeAreaGuide = view.safeAreaLayoutGuide
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+    
         
         NSLayoutConstraint.activate([
             
@@ -84,7 +86,7 @@ class PhotosViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: sefeAreaGuide.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: sefeAreaGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: sefeAreaGuide.trailingAnchor)
-            
+ 
         ])
     }
 }
@@ -104,6 +106,7 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
+
         photos.count // количество ячеек в секции
         //profile.count - было
     }
@@ -118,6 +121,7 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
         
         //let prof = profile[indexPath.row]
         //cell.setup(with: prof)
+        
         cell.profileImageView.image = photos[indexPath.row]  //размещение картинок
         return cell
     }

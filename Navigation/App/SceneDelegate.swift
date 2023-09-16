@@ -44,8 +44,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //new 2
         let loginFactory: LoginFactory = MyLogInFactory()
         loginInspector = loginFactory.makeLoginInspector()
-        
-        
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
         self.window = window

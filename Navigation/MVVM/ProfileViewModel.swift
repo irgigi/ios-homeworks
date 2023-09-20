@@ -10,7 +10,6 @@ final class ProfileViewModel {
     
     init () {
         self.profiles = Profile.make()
-        
     }
     
     func numberOfProfiles () -> Int {

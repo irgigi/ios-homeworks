@@ -44,7 +44,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //new 2
         let loginFactory: LoginFactory = MyLogInFactory()
         loginInspector = loginFactory.makeLoginInspector()
-        window.rootViewController = tabBarController
+        
+        //тема - координаторы
+        let mainCoordinator = MainCoordinator()
+        window.rootViewController = mainCoordinator.startApplication()   // было - tabBarController
         window.makeKeyAndVisible()
         self.window = window
         

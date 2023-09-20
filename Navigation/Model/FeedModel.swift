@@ -1,9 +1,7 @@
 //
 //  FeedModel.swift
 //  Navigation
-//
-//  Created by Мамуля on 02.09.2023.
-//
+
 
 import UIKit
 

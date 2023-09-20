@@ -6,10 +6,8 @@
 import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
-    
 
     let data = PostModel.make()
-    
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,7 +21,9 @@ class PhotosTableViewCell: UITableViewCell {
     }()
     
 
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -32,7 +32,7 @@ class PhotosTableViewCell: UITableViewCell {
         //collectionView.addSubview(imageCollection)
         constraint()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -98,6 +98,7 @@ extension PhotosTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 {
+            
             let controller = PhotosViewController()
             collectionView.deselectItem(at: indexPath, animated: true)
             
@@ -107,6 +108,7 @@ extension PhotosTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
                 if let viewController = responder as? UIViewController {
                     viewController.navigationController?.pushViewController(controller, animated: true)
                 }
+              
             }
         }
     }

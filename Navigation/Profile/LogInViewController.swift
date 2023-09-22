@@ -8,7 +8,6 @@ import UIKit
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
     var loginDelegate: LoginViewControllerDelegate?
-
     
     
     private lazy var scrollFieldView: UIScrollView = {

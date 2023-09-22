@@ -6,15 +6,14 @@
 import UIKit
 
 protocol ProfileCoordinatorProtocol {
-    func startProfile() -> UIViewController
+    func startPhotos() -> UIViewController
 }
 
 final class ProfileCoordinator {
     
-    func startProfile() -> UIViewController {
+    func startPhotos() -> UIViewController {
         
-        return LogInViewController()
+        return PhotosViewController()
     }
-    
-    
+
 }

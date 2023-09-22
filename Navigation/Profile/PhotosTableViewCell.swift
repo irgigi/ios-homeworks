@@ -8,6 +8,7 @@ import UIKit
 class PhotosTableViewCell: UITableViewCell {
 
     let data = PostModel.make()
+    var coordinator = ProfileCoordinator()
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -99,7 +100,7 @@ extension PhotosTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             
-            let controller = PhotosViewController()
+            let controller = coordinator.startPhotos() //PhotosViewController()
             collectionView.deselectItem(at: indexPath, animated: true)
             
             var responder: UIResponder? = self

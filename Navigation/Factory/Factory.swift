@@ -29,7 +29,7 @@ final class Factory {
     
             
         case .second:
-            let controller = ProfileViewController()
+            let controller = LogInViewController()
             navigationController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "house"), selectedImage: nil)
             navigationController.setViewControllers([controller], animated: true)
         }

@@ -8,6 +8,7 @@ import UIKit
 class PostViewController: UIViewController {
     
     var navBarButton: UIBarButtonItem!
+    var coordinator = FeedCoordinator()
 
     override func viewDidLoad() {
         
@@ -31,10 +32,10 @@ class PostViewController: UIViewController {
     
     @objc func buttonPressed() {
         
-        let infoController = InfoViewController()
-        infoController.modalTransitionStyle = .coverVertical
-        infoController.modalPresentationStyle = .pageSheet
-        present (infoController, animated: true, completion: nil)
+        let controller = coordinator.startInfo()
+        controller.modalTransitionStyle = .coverVertical
+        controller.modalPresentationStyle = .pageSheet
+        present (controller, animated: true, completion: nil)
         
     }
     

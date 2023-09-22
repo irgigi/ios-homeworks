@@ -15,11 +15,12 @@ class FeedViewController: UIViewController {
     
     var post = Post(title: "Мой пост")
     var model = FeedModel()
+    var coordinator = FeedCoordinator()
     
     lazy var postButton: CustomButton = {
         var buttonAction: () -> Void = {
-            let postViewController = PostViewController()
-            self.navigationController?.pushViewController(postViewController, animated: true)
+
+            self.navigationController?.pushViewController(self.coordinator.startFeed(), animated: true)
         }
         let button = CustomButton(title: post.title, titleColor: .systemBlue, action: buttonAction)
         button.translatesAutoresizingMaskIntoConstraints = false

@@ -7,11 +7,12 @@ import UIKit
 import iOSIntPackage
 
 class PhotosViewController: UIViewController {
-
-    let imagePublisherFacade = ImagePublisherFacade()
+    //5 hw
+    //let imagePublisherFacade = ImagePublisherFacade()
     
     // массив для загрузки полученных картинок
-    var photos: [UIImage] = []
+    //5 hw
+    //var photos: [UIImage] = []
     
     fileprivate lazy var profile: [Profile] = Profile.make()
     
@@ -40,20 +41,23 @@ class PhotosViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //загрузка своих фото в массив
+        //5 hw
+        /*
         for i in 0...profile.count-1 {
             photos.append(UIImage(imageLiteralResourceName: profile[i].img))
         }
+         */
         //подготовка перед отображением
-        imagePublisherFacade.subscribe(self) //подписка
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 21, userImages: photos) //загрузка с задержкой
+        //imagePublisherFacade.subscribe(self) //подписка
+        //imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 21, userImages: photos) //загрузка с задержкой
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         //завершающие операции,когда представление исчезло с экрана
-        imagePublisherFacade.removeSubscription(for: self) //удаление подписки
-        imagePublisherFacade.rechargeImageLibrary() //очистка библиотеки загруженных фото
+        //imagePublisherFacade.removeSubscription(for: self) //удаление подписки
+        //imagePublisherFacade.rechargeImageLibrary() //очистка библиотеки загруженных фото
         
     }
     
@@ -89,23 +93,26 @@ class PhotosViewController: UIViewController {
     }
 }
 
-extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
+extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDelegateFlowLayout //ImageLibrarySubscriber
+{
     
     
-    
+    //5 hw
+    /*
     func receive(images: [UIImage]) {
         self.photos = images //загружаем в массив полученные фото
         self.collectionView.reloadData() //обновление
     
     }
-    
+    */
     
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        photos.count // количество ячеек в секции
-        //profile.count - было
+        //5 hw
+        //photos.count // количество ячеек в секции
+        profile.count //как было
     }
     
     func collectionView(
@@ -116,9 +123,10 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
             withReuseIdentifier: CellID.base.rawValue,
             for: indexPath) as! PhotosCollectionViewCell
         
-        //let prof = profile[indexPath.row]
-        //cell.setup(with: prof)
-        cell.profileImageView.image = photos[indexPath.row]  //размещение картинок
+        let prof = profile[indexPath.row]
+        cell.setup(with: prof)
+        //5 hw
+       // cell.profileImageView.image = photos[indexPath.row]  //размещение картинок
         return cell
     }
     

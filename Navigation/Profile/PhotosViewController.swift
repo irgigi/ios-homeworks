@@ -12,10 +12,11 @@ class PhotosViewController: UIViewController {
     
     // массив для загрузки полученных картинок
     //5 hw
-    //var photos: [UIImage] = []
+    var photos: [UIImage] = []
+    var processedPhotos: [UIImage] = []
     
     fileprivate lazy var profile: [Profile] = Profile.make()
-    
+   
     
     
     let spacing = 8.0
@@ -42,11 +43,11 @@ class PhotosViewController: UIViewController {
         super.viewWillAppear(animated)
         //загрузка своих фото в массив
         //5 hw
-        /*
+        
         for i in 0...profile.count-1 {
             photos.append(UIImage(imageLiteralResourceName: profile[i].img))
         }
-         */
+        addProcessImagesOnThread()
         //подготовка перед отображением
         //imagePublisherFacade.subscribe(self) //подписка
         //imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 21, userImages: photos) //загрузка с задержкой
@@ -69,6 +70,30 @@ class PhotosViewController: UIViewController {
         setupLayouts()
         
 
+
+    }
+    
+    func addProcessImagesOnThread() {
+        let method = ImageProcessor()
+        method.processImagesOnThread(sourceImages: photos, filter: .chrome, qos: .default) { [weak self] processedImage in
+            /*
+            let processedPhotos = processedImage.compactMap { cgImage in
+                if let cgImage = cgImage {
+                    return UIImage(cgImage: cgImage)
+                }
+                
+                return nil
+            }
+             */
+        
+            self?.processedPhotos = processedImage.map { UIImage(cgImage: $0!) }
+            
+        }
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+        print (processedPhotos.count)
 
     }
     
@@ -112,7 +137,10 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
     ) -> Int {
         //5 hw
         //photos.count // количество ячеек в секции
-        profile.count //как было
+        //profile.count //как было
+        
+        processedPhotos.count
+        
     }
     
     func collectionView(
@@ -123,10 +151,10 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
             withReuseIdentifier: CellID.base.rawValue,
             for: indexPath) as! PhotosCollectionViewCell
         
-        let prof = profile[indexPath.row]
-        cell.setup(with: prof)
+        //let prof = profile[indexPath.row]
+        //cell.setup(with: prof)
         //5 hw
-       // cell.profileImageView.image = photos[indexPath.row]  //размещение картинок
+        cell.profileImageView.image = processedPhotos[indexPath.row]  //размещение картинок
         return cell
     }
     

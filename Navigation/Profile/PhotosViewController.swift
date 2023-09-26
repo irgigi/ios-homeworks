@@ -47,6 +47,7 @@ class PhotosViewController: UIViewController {
         for i in 0...profile.count-1 {
             photos.append(UIImage(imageLiteralResourceName: profile[i].img))
         }
+     
         addProcessImagesOnThread()
         //подготовка перед отображением
         //imagePublisherFacade.subscribe(self) //подписка
@@ -68,35 +69,39 @@ class PhotosViewController: UIViewController {
         view.backgroundColor = .white
         setupCollectionView()
         setupLayouts()
-        
-
 
     }
+
     
     func addProcessImagesOnThread() {
+        let start = DispatchTime.now()
         let method = ImageProcessor()
-        method.processImagesOnThread(sourceImages: photos, filter: .chrome, qos: .default) { [weak self] processedImage in
-            /*
-            let processedPhotos = processedImage.compactMap { cgImage in
-                if let cgImage = cgImage {
-                    return UIImage(cgImage: cgImage)
-                }
-                
-                return nil
-            }
-             */
-        
+        method.processImagesOnThread(sourceImages: photos, filter: .chrome, qos: .utility) { [weak self] processedImage in
+            
             self?.processedPhotos = processedImage.map { UIImage(cgImage: $0!) }
             
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
         }
-        
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-        print (processedPhotos.count)
+        let end = DispatchTime.now()
+        let answer = end.uptimeNanoseconds - start.uptimeNanoseconds
+        let interval = Double(answer) / 1000000000
+        print("обработка изображений занимает - \(interval) секунд")
 
     }
+    // MARK: - обработка изображений занимает:
+    // qos: .default - 0.000650056 секунд
+    // qos: .background - 0.000920976 секунд
+    // qos: .userInitiated - 0.000103646 секунд
+    // qos: .userInteractive - 0.000845569 секунд
+    // qos: .utility - 0.000839373 секунд
     
+    // .userInitiated - высший приоритет для задач по запросу пользователя, быстрое выполнение
+    
+    
+    
+
     private func setupCollectionView() {
         view.addSubview(collectionView)
         collectionView.dataSource = self

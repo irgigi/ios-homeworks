@@ -76,26 +76,31 @@ class PhotosViewController: UIViewController {
     func addProcessImagesOnThread() {
         let start = DispatchTime.now()
         let method = ImageProcessor()
-        method.processImagesOnThread(sourceImages: photos, filter: .chrome, qos: .utility) { [weak self] processedImage in
+        method.processImagesOnThread(sourceImages: photos, filter: .chrome, qos: .default) { [weak self] processedImage in
             
-            self?.processedPhotos = processedImage.map { UIImage(cgImage: $0!) }
+            let queue = DispatchQueue.global()
+            
+            queue.async {
+                self?.processedPhotos = processedImage.map { UIImage(cgImage: $0!) }
+                let end = DispatchTime.now()
+                let answer = end.uptimeNanoseconds - start.uptimeNanoseconds
+                let interval = Double(answer) / 1000000000
+                print("обработка изображений занимает - \(interval) секунд")
+            }
             
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
             }
         }
-        let end = DispatchTime.now()
-        let answer = end.uptimeNanoseconds - start.uptimeNanoseconds
-        let interval = Double(answer) / 1000000000
-        print("обработка изображений занимает - \(interval) секунд")
+
 
     }
     // MARK: - обработка изображений занимает:
-    // qos: .default - 0.000650056 секунд
-    // qos: .background - 0.000920976 секунд
-    // qos: .userInitiated - 0.000103646 секунд
-    // qos: .userInteractive - 0.000845569 секунд
-    // qos: .utility - 0.000839373 секунд
+    // qos: .default - 44.505652215 секунд
+    // qos: .background - 171.554239968 секунд
+    // qos: .userInitiated - 37.60918313 секунд
+    // qos: .userInteractive - 43.117960946 секунд
+    // qos: .utility - 85.908131826 секунд
     
     // .userInitiated - высший приоритет для задач по запросу пользователя, быстрое выполнение
     

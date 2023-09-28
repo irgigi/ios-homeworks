@@ -11,8 +11,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 
     var brute = BruteForceClass()
     
-        //let activityIndicator = UIActivityIndicatorView(style: .medium)
-    
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = UIColor.blue
@@ -157,9 +155,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             
         }
         
-
-
-       
     }
     
     override func viewDidLoad() {

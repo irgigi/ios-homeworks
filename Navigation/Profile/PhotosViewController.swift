@@ -14,6 +14,9 @@ class PhotosViewController: UIViewController {
     //5 hw
     var photos: [UIImage] = []
     var processedPhotos: [UIImage] = []
+    var counter = 0
+    
+    private var timer: Timer?
     
     fileprivate lazy var profile: [Profile] = Profile.make()
    
@@ -24,7 +27,7 @@ class PhotosViewController: UIViewController {
     enum CellID: String {
         case base = "ViewCell_ReuseID"
     }
-    
+    private let timeLabel = UILabel()
     private let collectionView: UICollectionView = {
         let  viewLayout = UICollectionViewFlowLayout()
         
@@ -72,25 +75,46 @@ class PhotosViewController: UIViewController {
 
     }
 
+    //MARK: - Комментарий к заданию 10 -
+    /*
+    В методе addProcessImagesOnThread() вместе с реализацией задачи из 8-го задания добавлен таймер для визуализации времени ожидания обработки фото. Таймер исчезает, когда коллекция фото отображается на экране
+    */
+    //MARK: - -
     
     func addProcessImagesOnThread() {
         let start = DispatchTime.now()
         let method = ImageProcessor()
-        method.processImagesOnThread(sourceImages: photos, filter: .chrome, qos: .default) { [weak self] processedImage in
-            
-            let queue = DispatchQueue.global()
-            
-            queue.async {
-                self?.processedPhotos = processedImage.map { UIImage(cgImage: $0!) }
-                let end = DispatchTime.now()
-                let answer = end.uptimeNanoseconds - start.uptimeNanoseconds
-                let interval = Double(answer) / 1000000000
-                print("обработка изображений занимает - \(interval) секунд")
+        
+        if timer == nil {
+            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
+                guard let self = self else { return }
+                self.counter += 1
+                self.timeLabel.text = "waiting \(self.counter)"
+            })
+            timer?.tolerance = 0.3
+            method.processImagesOnThread(sourceImages: photos, filter: .chrome, qos: .default) { [weak self] processedImage in
+                
+                let queue = DispatchQueue.global()
+                
+                queue.async {
+                    self?.processedPhotos = processedImage.map { UIImage(cgImage: $0!) }
+                    let end = DispatchTime.now()
+                    let answer = end.uptimeNanoseconds - start.uptimeNanoseconds
+                    let interval = Double(answer) / 1000000000
+                    print("обработка изображений занимает - \(interval) секунд")
+
+                }
+                
+                DispatchQueue.main.async {
+                    self?.collectionView.reloadData()
+                    self?.timer?.invalidate()
+                    self?.timer = nil
+                    self?.timeLabel.text = ""
+                }
             }
-            
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+        } else {
+            timer?.invalidate()
+            timer = nil
         }
 
 
@@ -104,11 +128,27 @@ class PhotosViewController: UIViewController {
     
     // .userInitiated - высший приоритет для задач по запросу пользователя, быстрое выполнение
     
-    
-    
+   /*
+    private func loadingWithTimer() {
+        
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
+                // какой-то код
+            })
+            self.timer?.tolerance = 0.3
+            
+            guard let timer = timer else { return }
+            RunLoop.current.add(timer, forMode: .common)
+            RunLoop.current.run()
+        }
+
+    }
+    */
 
     private func setupCollectionView() {
         view.addSubview(collectionView)
+        view.addSubview(timeLabel)
         collectionView.dataSource = self
         collectionView.delegate = self
     }
@@ -116,8 +156,12 @@ class PhotosViewController: UIViewController {
     private func setupLayouts() {
         let sefeAreaGuide = view.safeAreaLayoutGuide
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
+            
+            timeLabel.centerXAnchor.constraint(equalTo: sefeAreaGuide.centerXAnchor),
+            timeLabel.centerYAnchor.constraint(equalTo: sefeAreaGuide.centerYAnchor),
             
             collectionView.topAnchor.constraint(equalTo: sefeAreaGuide.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: sefeAreaGuide.bottomAnchor),
@@ -165,6 +209,7 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
         //cell.setup(with: prof)
         //5 hw
         cell.profileImageView.image = processedPhotos[indexPath.row]  //размещение картинок
+
         return cell
     }
     

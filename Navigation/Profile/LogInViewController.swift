@@ -9,7 +9,16 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     var loginDelegate: LoginViewControllerDelegate?
 
+    var brute = BruteForceClass()
     
+        //let activityIndicator = UIActivityIndicatorView(style: .medium)
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = UIColor.blue
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
     
     private lazy var scrollFieldView: UIScrollView = {
         let scrollFieldView = UIScrollView()
@@ -95,6 +104,19 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    lazy var pickUpPasswordButton: UIButton = {
+        let button = UIButton()
+        let bluePixelImage = UIImage(named: "blue_pixel")
+        button.setBackgroundImage(bluePixelImage, for: .normal)
+        button.backgroundImage(for: .normal)
+        button.setTitle("Подобрать пароль", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 10.0
+        button.addTarget(self, action: #selector(findPassword), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var stackViewForFields: UIStackView = {
         let stackViewForFields = UIStackView()
         stackViewForFields.axis = .vertical
@@ -104,6 +126,41 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return stackViewForFields
     }()
     
+    func generatePassword() -> String {
+        let char = String().printable
+        var generatedPassword = ""
+        for _ in 0...2 {
+            let randomIndex = Int(arc4random_uniform(UInt32(char.count)))
+            let randomChar = char[char.index(char.startIndex, offsetBy: randomIndex)]
+            generatedPassword.append(randomChar)
+        }
+        return generatedPassword
+    }
+    
+    @objc func findPassword() {
+        
+        activityIndicator.startAnimating()
+        
+        let generatedPassword = generatePassword()
+        print("сгенерированный пароль: \(generatedPassword)")
+        
+        DispatchQueue.global().async { [self] in
+            
+            let password = self.brute.bruteForce(passwordToUnlock: generatedPassword)
+            
+            DispatchQueue.main.async { [self] in
+                
+                self.activityIndicator.stopAnimating()
+                passwordField.text = password
+                passwordField.isSecureTextEntry = false
+            }
+            
+        }
+        
+
+
+       
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,8 +170,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
         view.addSubview(vkView)
         view.addSubview(scrollFieldView)
+        view.addSubview(activityIndicator)
         scrollFieldView.addSubview(stackViewForFields)
         scrollFieldView.addSubview(logInButton)
+        scrollFieldView.addSubview(pickUpPasswordButton)
         stackViewForFields.addArrangedSubview(loginField)
         stackViewForFields.addArrangedSubview(passwordField)
         stackViewForFields.addArrangedSubview(spaceView)
@@ -263,6 +322,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         logInButton.translatesAutoresizingMaskIntoConstraints = false
         stackViewForFields.translatesAutoresizingMaskIntoConstraints = false
         spaceView.translatesAutoresizingMaskIntoConstraints = false
+        pickUpPasswordButton.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
@@ -270,8 +331,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             vkView.widthAnchor.constraint(equalToConstant: 100),
             vkView.heightAnchor.constraint(equalToConstant: 100),
             vkView.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor),
+            vkView.bottomAnchor.constraint(equalTo: activityIndicator.topAnchor, constant: -20),
             
-            scrollFieldView.topAnchor.constraint(equalTo: vkView.bottomAnchor, constant: 120),
+            scrollFieldView.topAnchor.constraint(equalTo: activityIndicator.bottomAnchor, constant: 20),
             scrollFieldView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor, constant: 16),
             scrollFieldView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: -16),
             scrollFieldView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor),
@@ -310,8 +372,23 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             logInButton.widthAnchor.constraint(equalTo: scrollFieldView.widthAnchor),
             logInButton.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
             logInButton.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
-            logInButton.bottomAnchor.constraint(equalTo: scrollFieldView.bottomAnchor)
-       
+            logInButton.bottomAnchor.constraint(equalTo: pickUpPasswordButton.topAnchor, constant: -10),
+            
+            pickUpPasswordButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor),
+            pickUpPasswordButton.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
+            pickUpPasswordButton.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
+            pickUpPasswordButton.bottomAnchor.constraint(equalTo: scrollFieldView.bottomAnchor),
+            pickUpPasswordButton.heightAnchor.constraint(equalToConstant: 50),
+            pickUpPasswordButton.widthAnchor.constraint(equalTo: scrollFieldView.widthAnchor),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor),
+            activityIndicator.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
+            activityIndicator.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
+            activityIndicator.topAnchor.constraint(equalTo: vkView.bottomAnchor),
+            activityIndicator.bottomAnchor.constraint(equalTo: scrollFieldView.topAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 80),
+            activityIndicator.heightAnchor.constraint(equalToConstant: 80)
+
         ])
         
     }

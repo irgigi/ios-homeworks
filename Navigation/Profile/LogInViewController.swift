@@ -144,6 +144,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         DispatchQueue.global().async { [self] in
             
+            DispatchQueue.main.async { [self] in
+                pickUpPasswordButton.isHidden = true
+            }
+            
             let password = self.brute.bruteForce(passwordToUnlock: generatedPassword)
             
             DispatchQueue.main.async { [self] in

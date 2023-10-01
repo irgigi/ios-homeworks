@@ -19,6 +19,8 @@ class PhotosViewController: UIViewController {
     private var timer: Timer?
     
     fileprivate lazy var profile: [Profile] = Profile.make()
+    
+    var networkService = NetworkService()
    
     
     
@@ -204,6 +206,25 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: CellID.base.rawValue,
             for: indexPath) as! PhotosCollectionViewCell
+        
+       //MARK: - ОБРАБОТКА ОШИБОК - пример
+        do {
+            try networkService.getPhotos(arrayPhotos: processedPhotos)
+        } catch ApiError.notFound {
+            let alert = UIAlertController(title: "Фото не загружены", message: "Попробуйте еще раз", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true)
+        } catch ApiError.invalidInput {
+            let alert = UIAlertController(title: "Фото не найдены", message: "Попробуйте еще раз", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true)
+        } catch ApiError.networkError {
+            let alert = UIAlertController(title: "Error", message: "Неизвестная ошибка.Попробуйте еще раз", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true)
+        }  catch {
+            print("default")
+        }
         
         //let prof = profile[indexPath.row]
         //cell.setup(with: prof)

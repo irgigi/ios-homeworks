@@ -5,6 +5,8 @@
 
 import UIKit
 
+
+
 enum ApiError: Error {
     
     case networkError
@@ -15,17 +17,19 @@ enum ApiError: Error {
 
 final class NetworkService {
     
-    let photos = PhotosViewController().processedPhotos
+    var images = PhotosViewController().photos
     
     func getPhotos(arrayPhotos: [UIImage]) throws {
-        if arrayPhotos == photos {
+        if arrayPhotos == images {
             print("фото загружены")
         } else if arrayPhotos .isEmpty {
+            print(type(of: images))
             throw ApiError.notFound
-        } else if arrayPhotos != photos {
+        } else if arrayPhotos != images {
             throw ApiError.invalidInput
         } else {
             throw ApiError.networkError
         }
     }
 }
+

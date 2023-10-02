@@ -18,9 +18,9 @@ class PhotosViewController: UIViewController {
     
     private var timer: Timer?
     
-    fileprivate lazy var profile: [Profile] = Profile.make()
+    lazy var profile: [Profile] = Profile.make()
     
-    var networkService = NetworkService()
+    
    
     
     
@@ -46,13 +46,7 @@ class PhotosViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //загрузка своих фото в массив
-        //5 hw
-        
-        for i in 0...profile.count-1 {
-            photos.append(UIImage(imageLiteralResourceName: profile[i].img))
-        }
-     
+        //fetchImage()
         addProcessImagesOnThread()
         //подготовка перед отображением
         //imagePublisherFacade.subscribe(self) //подписка
@@ -72,9 +66,41 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         title = "Photo Gallery"
         view.backgroundColor = .white
+        //загрузка своих фото в массив
+        //5 hw
+        for i in 0...profile.count-1 {
+            photos.append(UIImage(imageLiteralResourceName: profile[i].img))
+        }
+
+        fetchImage()
         setupCollectionView()
         setupLayouts()
 
+    }
+    
+    //MARK: - ОБРАБОТКА ОШИБОК - пример
+    
+    private func fetchImage() {
+        let networkService = NetworkService()
+        do {
+            try networkService.getPhotos(arrayPhotos: photos)
+        } catch ApiError.notFound {
+            print(photos.count)
+            showAlert(title: "Фото не загружены", message: "Попробуйте еще раз")
+        } catch ApiError.invalidInput {
+            showAlert(title: "Фото не найдены", message: "Попробуйте еще раз")
+        } catch ApiError.networkError {
+            showAlert(title: "Error", message: "Неизвестная ошибка.Попробуйте еще раз")
+        }  catch {
+            print("default")
+        }
+
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        self.present(alert, animated: true)
     }
 
     //MARK: - Комментарий к заданию 10 -
@@ -86,7 +112,6 @@ class PhotosViewController: UIViewController {
     func addProcessImagesOnThread() {
         let start = DispatchTime.now()
         let method = ImageProcessor()
-        
         if timer == nil {
             timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
                 guard let self = self else { return }
@@ -206,26 +231,7 @@ extension PhotosViewController:  UICollectionViewDataSource, UICollectionViewDel
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: CellID.base.rawValue,
             for: indexPath) as! PhotosCollectionViewCell
-        
-       //MARK: - ОБРАБОТКА ОШИБОК - пример
-        do {
-            try networkService.getPhotos(arrayPhotos: processedPhotos)
-        } catch ApiError.notFound {
-            let alert = UIAlertController(title: "Фото не загружены", message: "Попробуйте еще раз", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            self.present(alert, animated: true)
-        } catch ApiError.invalidInput {
-            let alert = UIAlertController(title: "Фото не найдены", message: "Попробуйте еще раз", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            self.present(alert, animated: true)
-        } catch ApiError.networkError {
-            let alert = UIAlertController(title: "Error", message: "Неизвестная ошибка.Попробуйте еще раз", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            self.present(alert, animated: true)
-        }  catch {
-            print("default")
-        }
-        
+                
         //let prof = profile[indexPath.row]
         //cell.setup(with: prof)
         //5 hw

@@ -129,15 +129,6 @@ class PhotosViewController: UIViewController {
                 
                 queue.async {
                     
-                    networkService.chanchedPhoto(array: processedPhotos) { result in
-                        switch result {
-                        case .success():
-                            print("ok")
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                    
                     self?.processedPhotos = processedImage.map { UIImage(cgImage: $0!) }
                     let end = DispatchTime.now()
                     let answer = end.uptimeNanoseconds - start.uptimeNanoseconds
@@ -147,6 +138,15 @@ class PhotosViewController: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
+                    
+                    networkService.chanchedPhoto(array: processedPhotos) { result in
+                        switch result {
+                        case .success():
+                            print("ok")
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
                     
                     self?.collectionView.reloadData()
                     self?.timer?.invalidate()

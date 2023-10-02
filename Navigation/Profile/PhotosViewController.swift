@@ -20,10 +20,6 @@ class PhotosViewController: UIViewController {
     
     lazy var profile: [Profile] = Profile.make()
     
-    
-   
-    
-    
     let spacing = 8.0
     
     enum CellID: String {
@@ -68,6 +64,7 @@ class PhotosViewController: UIViewController {
         view.backgroundColor = .white
         //загрузка своих фото в массив
         //5 hw
+        
         for i in 0...profile.count-1 {
             photos.append(UIImage(imageLiteralResourceName: profile[i].img))
         }
@@ -81,9 +78,15 @@ class PhotosViewController: UIViewController {
     //MARK: - ОБРАБОТКА ОШИБОК - пример
     
     private func fetchImage() {
-        let networkService = NetworkService()
+        
+        // для имитации ошибки
+        let photos_error = [UIImage]()
+
+        let networkService = NetworkService(photosViewController: self)
         do {
             try networkService.getPhotos(arrayPhotos: photos)
+            // имитация ошибки
+            //try networkService.getPhotos(arrayPhotos: photos_error)
         } catch ApiError.notFound {
             print(photos.count)
             showAlert(title: "Фото не загружены", message: "Попробуйте еще раз")
@@ -112,6 +115,7 @@ class PhotosViewController: UIViewController {
     func addProcessImagesOnThread() {
         let start = DispatchTime.now()
         let method = ImageProcessor()
+        let networkService = NetworkService(photosViewController: self)
         if timer == nil {
             timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
                 guard let self = self else { return }
@@ -124,6 +128,16 @@ class PhotosViewController: UIViewController {
                 let queue = DispatchQueue.global()
                 
                 queue.async {
+                    
+                    networkService.chanchedPhoto(array: processedPhotos) { result in
+                        switch result {
+                        case .success():
+                            print("ok")
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                    
                     self?.processedPhotos = processedImage.map { UIImage(cgImage: $0!) }
                     let end = DispatchTime.now()
                     let answer = end.uptimeNanoseconds - start.uptimeNanoseconds
@@ -133,10 +147,12 @@ class PhotosViewController: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
+                    
                     self?.collectionView.reloadData()
                     self?.timer?.invalidate()
                     self?.timer = nil
                     self?.timeLabel.text = ""
+                
                 }
             }
         } else {

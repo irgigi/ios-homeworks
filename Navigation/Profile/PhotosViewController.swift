@@ -16,6 +16,9 @@ class PhotosViewController: UIViewController {
     var processedPhotos: [UIImage] = []
     var counter = 0
     
+    // для имитации ошибки
+    let photos_error = [UIImage]()
+    
     private var timer: Timer?
     
     lazy var profile: [Profile] = Profile.make()
@@ -78,9 +81,6 @@ class PhotosViewController: UIViewController {
     //MARK: - ОБРАБОТКА ОШИБОК - пример
     
     private func fetchImage() {
-        
-        // для имитации ошибки
-        let photos_error = [UIImage]()
 
         let networkService = NetworkService(photosViewController: self)
         do {
@@ -123,6 +123,12 @@ class PhotosViewController: UIViewController {
                 self.timeLabel.text = "waiting \(self.counter)"
             })
             timer?.tolerance = 0.3
+            
+            // * если папка photos пуста, то дальнейшее выполнение бессмысленно
+            guard !photos.isEmpty else {
+                preconditionFailure("фото отсутствуют")
+            }
+            
             method.processImagesOnThread(sourceImages: photos, filter: .chrome, qos: .default) { [weak self] processedImage in
                 
                 let queue = DispatchQueue.global()
@@ -139,16 +145,17 @@ class PhotosViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     
-                    networkService.chanchedPhoto(array: processedPhotos) { result in
+                    // Задание 11 - задача 3
+                    networkService.chanchedPhoto(array: self?.processedPhotos ?? self!.photos) { result in
                         switch result {
-                        case .success():
+                        case .success(_):
+                            self?.collectionView.reloadData()
                             print("ok")
                         case .failure(let error):
                             print(error)
                         }
                     }
                     
-                    self?.collectionView.reloadData()
                     self?.timer?.invalidate()
                     self?.timer = nil
                     self?.timeLabel.text = ""

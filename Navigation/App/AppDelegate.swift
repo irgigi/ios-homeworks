@@ -12,9 +12,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        //рандомный выбор из массива url
-        let randomConfiguration = [AppConfiguration.url1, AppConfiguration.url2, AppConfiguration.url3].randomElement()
-        
+        //рандомный выбор url
+        let randomConfiguration = AppConfiguration.allCases.randomElement()
         
         if let configuration = randomConfiguration {
             //передаем в сервис

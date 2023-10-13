@@ -6,7 +6,7 @@
 import UIKit
 
 
-enum AppConfiguration {
+enum AppConfiguration: CaseIterable {
     
     case url1
     case url2

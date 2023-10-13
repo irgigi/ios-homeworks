@@ -6,6 +6,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
+    
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -13,16 +14,44 @@ class InfoViewController: UIViewController {
         return button
        }()
     
+    let jsonLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .darkGray
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+        
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        JSONModel.request { [weak self ]result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let title):
+                    self?.jsonLabel.text = title
+                case .failure(_):
+                    self?.jsonLabel.text = "Ошибка"
+                }
+            }
+        }
+        
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemTeal
         
         view.addSubview(actionButton)
+        view.addSubview(jsonLabel)
 
         NSLayoutConstraint.activate([
             actionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            actionButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            actionButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            jsonLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            jsonLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            jsonLabel.widthAnchor.constraint(equalToConstant: 200)
         ])
  
         actionButton.addTarget(self, action: #selector(showAlert), for: .touchUpInside)

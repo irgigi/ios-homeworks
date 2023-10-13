@@ -23,6 +23,7 @@
 		865FE46B2A90E974009614BB /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865FE46A2A90E974009614BB /* PhotosCollectionViewCell.swift */; };
 		86699E482A8D131B00B69719 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86699E472A8D131B00B69719 /* CollectionViewCell.swift */; };
 		867ED7B62A597106001A1D22 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867ED7B52A597106001A1D22 /* PostTableViewCell.swift */; };
+		867F4EBE2AD555EF006977A1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867F4EBD2AD555EF006977A1 /* NetworkManager.swift */; };
 		86815E272A89EB1800BCA8C8 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86815E262A89EB1800BCA8C8 /* Checker.swift */; };
 		86815E2A2A89F42E00BCA8C8 /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86815E292A89F42E00BCA8C8 /* LoginViewControllerDelegate.swift */; };
 		86815E2C2A8A457100BCA8C8 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86815E2B2A8A457100BCA8C8 /* LoginInspector.swift */; };
@@ -58,6 +59,7 @@
 		865FE46A2A90E974009614BB /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		86699E472A8D131B00B69719 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		867ED7B52A597106001A1D22 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		867F4EBD2AD555EF006977A1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		86815E262A89EB1800BCA8C8 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		86815E292A89F42E00BCA8C8 /* LoginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegate.swift; sourceTree = "<group>"; };
 		86815E2B2A8A457100BCA8C8 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				86A042BD2AC8476E00597C78 /* NetworkService.swift */,
+				867F4EBD2AD555EF006977A1 /* NetworkManager.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				865720172A3B252300F6B3F6 /* FeedViewController.swift in Sources */,
 				86815E272A89EB1800BCA8C8 /* Checker.swift in Sources */,
 				865A9B062A5673FF00929A10 /* Post.swift in Sources */,
+				867F4EBE2AD555EF006977A1 /* NetworkManager.swift in Sources */,
 				86815E2F2A8A739F00BCA8C8 /* LoginFactory.swift in Sources */,
 				8609122A2A8FD7180009C9B3 /* ElementsCollectionViewCell.swift in Sources */,
 				867ED7B62A597106001A1D22 /* PostTableViewCell.swift in Sources */,

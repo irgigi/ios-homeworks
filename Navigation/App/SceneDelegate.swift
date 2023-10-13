@@ -20,10 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
         
         let firstNavController = UINavigationController(rootViewController: FeedViewController()) //
-        
+
         let secondNavController = UINavigationController(rootViewController: LogInViewController()) // было ProfileViewController()
         
         let postNavController = UINavigationController(rootViewController: PostViewController())
+        
         
        // let infoNavController = UINavigationController(rootViewController: InfoViewController())
         

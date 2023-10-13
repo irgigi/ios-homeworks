@@ -14,11 +14,11 @@ struct Post {
 class FeedViewController: UIViewController {
     
     var post = Post(title: "Мой пост")
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            // Do any additional setup after loading the view.
-        
+    
         view.backgroundColor = .systemCyan
             
         let button = UIButton(type: .system)

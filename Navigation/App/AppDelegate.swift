@@ -11,8 +11,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
+        //рандомный выбор из массива url
+        let randomConfiguration = [AppConfiguration.url1, AppConfiguration.url2, AppConfiguration.url3].randomElement()
+        
+        
+        if let configuration = randomConfiguration {
+            //передаем в сервис
+            NetworkManager.request(for: configuration)
+
+        }
+        
+    
+        
+        // Override point for customization after application launch.
         
         //new
         /*

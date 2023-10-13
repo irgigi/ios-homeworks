@@ -123,12 +123,12 @@ class PhotosViewController: UIViewController {
                 self.timeLabel.text = "waiting \(self.counter)"
             })
             timer?.tolerance = 0.3
-            
+          /*
             // * если папка photos пуста, то дальнейшее выполнение бессмысленно
             guard !photos.isEmpty else {
                 preconditionFailure("фото отсутствуют")
             }
-            
+          */
             method.processImagesOnThread(sourceImages: photos, filter: .chrome, qos: .default) { [weak self] processedImage in
                 
                 let queue = DispatchQueue.global()

@@ -11,6 +11,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 
     var brute = BruteForceClass()
     
+    
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = UIColor.blue

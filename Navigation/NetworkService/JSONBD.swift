@@ -52,3 +52,6 @@ struct JSONModel {
         dataTask.resume()
     }
 }
+
+
+

@@ -32,6 +32,7 @@
 		869F01FB2A349217007456E6 /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F01FA2A349217007456E6 /* ProfileTableHeaderView.swift */; };
 		869F01FD2A349500007456E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F01FC2A349500007456E6 /* ProfileViewController.swift */; };
 		86A042BE2AC8476E00597C78 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A042BD2AC8476E00597C78 /* NetworkService.swift */; };
+		86A5035C2ADAD6BA007410E5 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A5035B2ADAD6B9007410E5 /* RequestService.swift */; };
 		86B11ECA2A8BD614000D994E /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B11EC92A8BD614000D994E /* PhotosTableViewCell.swift */; };
 		86B7F0082AC17E9700EE3BB2 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 86B7F0072AC17E9700EE3BB2 /* iOSIntPackage */; };
 		86CB73692AC4456F00736AC2 /* BruteForceClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CB73682AC4456F00736AC2 /* BruteForceClass.swift */; };
@@ -69,6 +70,7 @@
 		869F01FA2A349217007456E6 /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
 		869F01FC2A349500007456E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		86A042BD2AC8476E00597C78 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		86A5035B2ADAD6B9007410E5 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		86B11EC92A8BD614000D994E /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		86CB73682AC4456F00736AC2 /* BruteForceClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForceClass.swift; sourceTree = "<group>"; };
 		86D533572AD98BD400814C56 /* JSONBD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBD.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				86A042BD2AC8476E00597C78 /* NetworkService.swift */,
 				867F4EBD2AD555EF006977A1 /* NetworkManager.swift */,
 				86D533572AD98BD400814C56 /* JSONBD.swift */,
+				86A5035B2ADAD6B9007410E5 /* RequestService.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				86815E2C2A8A457100BCA8C8 /* LoginInspector.swift in Sources */,
 				86699E482A8D131B00B69719 /* CollectionViewCell.swift in Sources */,
 				864BA4902A80FBAB00EFAFAA /* TestUserService.swift in Sources */,
+				86A5035C2ADAD6BA007410E5 /* RequestService.swift in Sources */,
 				86A042BE2AC8476E00597C78 /* NetworkService.swift in Sources */,
 				86D7320A2A7FFEE60030E27E /* CurrentUserService.swift in Sources */,
 				865720152A3B246F00F6B3F6 /* InfoViewController.swift in Sources */,

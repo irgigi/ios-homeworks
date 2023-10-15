@@ -16,11 +16,21 @@ class InfoViewController: UIViewController {
     
     let jsonLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .light)
         label.textColor = .darkGray
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         
+        return label
+        
+    }()
+    
+    let planetLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.textColor = .darkGray
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
         
     }()
@@ -38,12 +48,25 @@ class InfoViewController: UIViewController {
                 }
             }
         }
+       
+        Planet.requestPlanets { [ weak self ] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let title):
+                    self?.planetLabel.text = "Период обращения планеты Татуин вокруг своей звезды - \(title)"
+                case .failure(_):
+                    self?.planetLabel.text = "Ошибка"
+                }
+            }
+        }
+    
         
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemTeal
         
         view.addSubview(actionButton)
         view.addSubview(jsonLabel)
+        view.addSubview(planetLabel)
 
         NSLayoutConstraint.activate([
             actionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -51,7 +74,13 @@ class InfoViewController: UIViewController {
             
             jsonLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             jsonLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            jsonLabel.widthAnchor.constraint(equalToConstant: 200)
+            jsonLabel.widthAnchor.constraint(equalToConstant: 200),
+            //jsonLabel.bottomAnchor.constraint(equalTo: planetLabel.topAnchor),
+            
+            planetLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            //planetLabel.topAnchor.constraint(equalTo: jsonLabel.bottomAnchor),
+            planetLabel.widthAnchor.constraint(equalToConstant: 200),
+            planetLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
         ])
  
         actionButton.addTarget(self, action: #selector(showAlert), for: .touchUpInside)

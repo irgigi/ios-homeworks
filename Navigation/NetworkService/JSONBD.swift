@@ -4,7 +4,7 @@
 
 
 import Foundation
-
+//Задача 1 задание 2
 struct JSONModel {
     static func request(completion: @escaping (Result<String, Error>) -> Void) {
         let stringURL = "https://jsonplaceholder.typicode.com/todos/25"

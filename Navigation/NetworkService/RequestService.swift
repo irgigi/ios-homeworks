@@ -4,24 +4,36 @@
 
 
 import Foundation
+//Задача 2 задание 2
+
+struct UrlName {
+    static let baseUrl = "https://swapi.dev/api/planets/1"
+}
+
+struct Residents: Decodable {
+    let name: String
+}
 
 struct Planet: Decodable {
-
+    let name: String
     let orbitalPeriod: String
+    let residents: [URL]
     
     enum CodingKeys: String, CodingKey {
-        
+        case name
         case orbitalPeriod = "orbital_period"
+        case residents
     }
     
-    static func requestPlanets(completion: @escaping (Result<String, Error>) -> Void) {
-        let baseURL = "https://swapi.dev/api/planets/1"
-        guard let url = URL(string: baseURL) else { return }
+    static func requestPlanets(completion: @escaping (Result<Planet, Error>) -> Void) {
+        
+        guard let url = URL(string: UrlName.baseUrl) else { return }
         let request = URLRequest(url: url)
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("ОШИБКА - ",error.localizedDescription)
+                completion(.failure(error))
                 return
             }
             if let httpResponse = response as? HTTPURLResponse {
@@ -31,9 +43,9 @@ struct Planet: Decodable {
                     if let data = data {
                         let decoder = JSONDecoder()
                         do {
-                            let planets = try decoder.decode(Planet.self, from: data)
-                            print(planets.orbitalPeriod)
-                            completion(.success(planets.orbitalPeriod))
+                            let planet = try decoder.decode(Planet.self, from: data)
+                            print(planet)
+                            completion(.success(planet))
                         } catch {
                             print("Ошибка декодирования \(error.localizedDescription)")
                             completion(.failure(error))

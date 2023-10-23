@@ -11,7 +11,7 @@ import UIKit
 
 class ProfileTableHeaderView: UITableViewHeaderFooterView {
     
-    static var userProfile: User?
+    static var userProfile: User2?
     private var statusText:String
     private var inspector = LoginInspector()
     
@@ -33,7 +33,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
 
     let nameLabel: UILabel = {
         let label = UILabel()
-        var user: User?
+        var user: User2?
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
         label.text = userProfile?.name
@@ -45,7 +45,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
 
     let statusLabel: UILabel = {
         let label = UILabel()
-        var user: User?
+        var user: User2?
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = UIColor.gray
         label.text = userProfile?.status

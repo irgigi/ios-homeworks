@@ -5,7 +5,7 @@
 
 import UIKit
 
-class User {
+class User2 {
     
     let login: String
     let name: String

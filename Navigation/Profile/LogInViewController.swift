@@ -9,7 +9,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     var loginDelegate: LoginViewControllerDelegate?
 
-    
+    private let authService = AuthService()
+    private let checkerService = CheckerService()
     
     private lazy var scrollFieldView: UIScrollView = {
         let scrollFieldView = UIScrollView()
@@ -87,7 +88,20 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         let bluePixelImage = UIImage(named: "blue_pixel")
         button.setBackgroundImage(bluePixelImage, for: .normal)
         button.backgroundImage(for: .normal)
-        button.setTitle("Log In", for: .normal)
+        button.setTitle("Войти", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 10.0
+        button.addTarget(self, action: #selector(buttonToProfile), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var signUpButton: UIButton = {
+        let button = UIButton()
+        let bluePixelImage = UIImage(named: "blue_pixel")
+        button.setBackgroundImage(bluePixelImage, for: .normal)
+        button.backgroundImage(for: .normal)
+        button.setTitle("Зарегестрироваться", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.clipsToBounds = true
         button.layer.cornerRadius = 10.0
@@ -110,11 +124,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         view.backgroundColor = .white
         
-    
         view.addSubview(vkView)
         view.addSubview(scrollFieldView)
         scrollFieldView.addSubview(stackViewForFields)
         scrollFieldView.addSubview(logInButton)
+        scrollFieldView.addSubview(signUpButton)
         stackViewForFields.addArrangedSubview(loginField)
         stackViewForFields.addArrangedSubview(passwordField)
         stackViewForFields.addArrangedSubview(spaceView)
@@ -123,7 +137,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         self.loginField.delegate = self
         self.passwordField.delegate = self
-        
         
 
     }
@@ -190,6 +203,41 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         notificationCenter.removeObserver(self)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let emeilText = loginField.text ?? ""
+        let passwordText = passwordField.text ?? ""
+        
+        logInButton.isEnabled = !emeilText.isEmpty && !passwordText.isEmpty
+        signUpButton.isEnabled = !emeilText.isEmpty && !passwordText.isEmpty
+        return true
+    }
+    
+    //один метод для двух кнопок FireBase
+    @objc func buttonAction(button: UIButton) {
+        switch button {
+        case logInButton:
+            authService.loginUser(email: loginField.text!, password: passwordField.text!) { [weak self] result in
+                switch result {
+                case .success(let user):
+                    print(user)
+                case .failure:
+                    self?.showAllert()
+                }
+            }
+        case signUpButton:
+            authService.signUpUser(email: loginField.text!, password: passwordField.text!) { [weak self] result in
+                switch result {
+                case .success(let user):
+                    print(user)
+                case .failure:
+                    self?.showAllert()
+                }
+            }
+        default:
+            break
+        }
+    }
+    
     @objc func getLogin() -> String {
         if let login = loginField.text {
             return login
@@ -206,6 +254,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             
             return
             
+        }
+        if !checkerService.isValidEmail(login) || !checkerService.isValidPassword(password) {
+            showAllert()
+            return
         }
         
 /*
@@ -259,6 +311,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         scrollFieldView.translatesAutoresizingMaskIntoConstraints = false
         vkView.translatesAutoresizingMaskIntoConstraints = false
         loginField.translatesAutoresizingMaskIntoConstraints = false
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         logInButton.translatesAutoresizingMaskIntoConstraints = false
         stackViewForFields.translatesAutoresizingMaskIntoConstraints = false
@@ -290,6 +343,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
            // loginField.heightAnchor.constraint(equalToConstant: 50),
             loginField.widthAnchor.constraint(equalTo: stackViewForFields.widthAnchor),
             loginField.bottomAnchor.constraint(equalTo: spaceView.topAnchor),
+            
            
             spaceView.heightAnchor.constraint(equalToConstant: 0.5),
             spaceView.leadingAnchor.constraint(equalTo: stackViewForFields.leadingAnchor),
@@ -305,12 +359,19 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
            // passwordField.heightAnchor.constraint(equalToConstant: 50),
             passwordField.bottomAnchor.constraint(equalTo: stackViewForFields.bottomAnchor),
             
-            logInButton.topAnchor.constraint(equalTo: stackViewForFields.bottomAnchor, constant: -16),
+            logInButton.topAnchor.constraint(equalTo: stackViewForFields.bottomAnchor, constant: 30),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
             logInButton.widthAnchor.constraint(equalTo: scrollFieldView.widthAnchor),
             logInButton.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
             logInButton.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
-            logInButton.bottomAnchor.constraint(equalTo: scrollFieldView.bottomAnchor)
+            //logInButton.bottomAnchor.constraint(equalTo: scrollFieldView.bottomAnchor),
+            
+            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 10),
+            signUpButton.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
+            signUpButton.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
+            signUpButton.widthAnchor.constraint(equalTo: scrollFieldView.widthAnchor),
+            signUpButton.bottomAnchor.constraint(equalTo: scrollFieldView.bottomAnchor),
+            signUpButton.heightAnchor.constraint(equalToConstant: 50)
        
         ])
         
@@ -318,4 +379,5 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     
 }
+
 

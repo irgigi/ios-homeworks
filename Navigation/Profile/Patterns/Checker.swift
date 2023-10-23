@@ -9,8 +9,8 @@ class Checker: LoginViewControllerDelegate {
     
     static let shared = Checker()
     
-    private let loginUser = "felix04"
-    private let passwordUser = "1507"
+    private let loginUser = "test@mail.ru"
+    private let passwordUser = "123456"
     
     private init() {}
     

@@ -9,7 +9,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     var loginDelegate: LoginViewControllerDelegate?
 
-    private let authService = AuthService()
     private let checkerService = CheckerService()
     
     private lazy var scrollFieldView: UIScrollView = {
@@ -36,8 +35,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         text.backgroundColor = .systemGray6
         text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        //text.placeholder = "login"
-        text.text = "felix04"
+        text.placeholder = "login"
+        //text.text = "felix04"
         text.textColor = UIColor.black
         text.tintColor = UIColor(named: "MyColor")
         text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
@@ -61,8 +60,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         text.backgroundColor = .systemGray6
         text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        //text.placeholder = "password"
-        text.text = "1507"
+        text.placeholder = "password"
+        //text.text = "1507"
         text.textColor = UIColor.black
         text.tintColor = UIColor(named: "MyColor")
         text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
@@ -173,7 +172,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
+        loginField.text = ""
+        passwordField.text = ""
         removeKeyboardObservers()
         
     }
@@ -203,6 +204,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         notificationCenter.removeObserver(self)
     }
     
+    //проверка на правильность ввода
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let emeilText = loginField.text ?? ""
         let passwordText = passwordField.text ?? ""
@@ -212,31 +214,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    //один метод для двух кнопок FireBase
-    @objc func buttonAction(button: UIButton) {
-        switch button {
-        case logInButton:
-            authService.loginUser(email: loginField.text!, password: passwordField.text!) { [weak self] result in
-                switch result {
-                case .success(let user):
-                    print(user)
-                case .failure:
-                    self?.showAllert()
-                }
-            }
-        case signUpButton:
-            authService.signUpUser(email: loginField.text!, password: passwordField.text!) { [weak self] result in
-                switch result {
-                case .success(let user):
-                    print(user)
-                case .failure:
-                    self?.showAllert()
-                }
-            }
-        default:
-            break
-        }
-    }
     
     @objc func getLogin() -> String {
         if let login = loginField.text {
@@ -245,7 +222,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return "no login"
     }
     
-    @objc private func buttonToProfile() {
+    //один метод для двух кнопок FireBase
+    @objc private func buttonToProfile(button: UIButton) {
        
         let profileViewController = ProfileViewController()
         let logInspector = LoginInspector()
@@ -256,8 +234,40 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             
         }
         if !checkerService.isValidEmail(login) || !checkerService.isValidPassword(password) {
-            showAllert()
+            showAllert(message: "Ошибка ввода email или пароля (не менее 6 символов)")
             return
+        } else {
+            switch button {
+            case logInButton:
+                checkerService.checkCredentials(email: login, password: password) { [weak self] result in
+                    switch result {
+                    case .success(let user):
+                        let loginResult = logInspector.check(login, password)
+                        if loginResult {
+                            let current = CurrentUserService()
+                            ProfileTableHeaderView.userProfile = current.currentUser
+                            self?.navigationController?.pushViewController(profileViewController, animated: true)
+                        } else {
+                            self?.showAllert(message: "Страница пользователя не создана")
+                        }
+                        print(user)
+                    case .failure:
+                        self?.showAllert(message: "Подьзователь ещё не зарегистрирован")
+                    }
+                }
+            case signUpButton:
+                checkerService.signUp(email: login, password: password) { [weak self] result in
+                    switch result {
+                    case .success(let user):
+                        self?.signUpButton.isEnabled = false
+                        print("\(user) зарегистрирован")
+                    case .failure:
+                        self?.showAllert(message: "Этот пользователь уже зарегистрирован!")
+                    }
+                }
+            default:
+                break
+            }
         }
         
 /*
@@ -278,17 +288,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
               }
 #endif
  */
-        let loginResult = logInspector.check(login, password)
-        
-        if loginResult {
-            let current = CurrentUserService()
-            ProfileTableHeaderView.userProfile = current.currentUser
-            navigationController?.pushViewController(profileViewController, animated: true)
-        } else {
-            let alert = UIAlertController(title: "Unknown login or password", message: "Please, enter correct user login/password", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            self.present(alert, animated: true)
-        }
+
             
           
 

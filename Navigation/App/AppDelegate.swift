@@ -5,6 +5,7 @@
 
 import UIKit
 import FirebaseCore
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         */
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        do{
+            try Auth.auth().signOut()
+        } catch {
+            print("Ошибка выхода пользователя: \(error.localizedDescription)")
+        }
     }
 
     // MARK: UISceneSession Lifecycle

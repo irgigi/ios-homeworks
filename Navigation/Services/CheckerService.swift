@@ -41,7 +41,6 @@ class CheckerService: CheckerServiceProtocol {
     
     func signUp(email: String, password: String, completion: @escaping (Result<FireBaseUser, Error>) -> Void) {
         
-        //нужна валидация email и пароля
         
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
@@ -54,4 +53,5 @@ class CheckerService: CheckerServiceProtocol {
             }
         }
     }
+    
 }

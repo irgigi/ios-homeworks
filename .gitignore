@@ -60,6 +60,9 @@ Podfile.lock
 # Add this line if you want to avoid checking in source code from the Xcode workspace
 # *.xcworkspace
 
+#Firebase
+GoogleService-Info.plist
+
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.

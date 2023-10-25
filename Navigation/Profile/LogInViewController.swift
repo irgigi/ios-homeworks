@@ -319,7 +319,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         NSLayoutConstraint.activate([
             
-            vkView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor, constant: 120),
+            vkView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor, constant: 100),
             vkView.widthAnchor.constraint(equalToConstant: 100),
             vkView.heightAnchor.constraint(equalToConstant: 100),
             vkView.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor),
@@ -359,14 +359,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
            // passwordField.heightAnchor.constraint(equalToConstant: 50),
             passwordField.bottomAnchor.constraint(equalTo: stackViewForFields.bottomAnchor),
             
-            logInButton.topAnchor.constraint(equalTo: stackViewForFields.bottomAnchor, constant: 30),
+            logInButton.topAnchor.constraint(equalTo: stackViewForFields.bottomAnchor, constant: 20),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
             logInButton.widthAnchor.constraint(equalTo: scrollFieldView.widthAnchor),
             logInButton.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
             logInButton.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
             //logInButton.bottomAnchor.constraint(equalTo: scrollFieldView.bottomAnchor),
             
-            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 10),
+            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 5),
             signUpButton.leadingAnchor.constraint(equalTo: scrollFieldView.leadingAnchor),
             signUpButton.trailingAnchor.constraint(equalTo: scrollFieldView.trailingAnchor),
             signUpButton.widthAnchor.constraint(equalTo: scrollFieldView.widthAnchor),

@@ -70,7 +70,7 @@ extension PhotosTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 1 {
-            return data.count
+            return 4
         }
         return 1
     }

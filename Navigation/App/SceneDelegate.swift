@@ -25,16 +25,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let postNavController = UINavigationController(rootViewController: PostViewController())
         
+        let likeController = UINavigationController(rootViewController: LikePostController())
+        
         
        // let infoNavController = UINavigationController(rootViewController: InfoViewController())
         
         firstNavController.tabBarItem = UITabBarItem(title: "Лента пользователя", image: UIImage(systemName: "heart") , tag: 0)
         
-        secondNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "house"), tag: 1)
+        secondNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "house"), tag: 2)
         
-        postNavController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 2)
+        likeController.tabBarItem = UITabBarItem(title: "Избранное", image: UIImage(systemName: "hand.thumbsup"), tag: 1)
         
-        tabBarController.viewControllers = [firstNavController, secondNavController]
+        postNavController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 3)
+        
+        tabBarController.viewControllers = [firstNavController, likeController, secondNavController]
         
         //new 1
         let loginViewController = LogInViewController()
@@ -80,6 +84,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        //new
+        CoreDataService.shared.saveContext()
     }
 
 

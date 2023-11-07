@@ -11,8 +11,8 @@ struct PostModel {
     let author: String
     let description: String
     let image: String
-    let likes: Int
-    let views: Int
+    let likes: Int16
+    let views: Int16
 }
 
 extension PostModel {
@@ -41,6 +41,13 @@ extension PostModel {
                       image: "felix4",
                       likes: 1,
                       views: 1),
+            
+            PostModel(author: "Felix",
+                      description: "My paws",
+                      image: "felix5",
+                      likes: 1,
+                      views: 1),
+            
         ]
     }
 }

@@ -8,7 +8,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-
+    private let likeService = LikeService()
 
     let profileTableHeaderView = ProfileTableHeaderView()
     
@@ -69,6 +69,7 @@ class ProfileViewController: UIViewController {
         tableView.addSubview(profileTableHeaderView)
         view.addSubview(tableView)
         setupConstraints()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +81,28 @@ class ProfileViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
+    @objc func doubleTapClickAction(_ sender: UITapGestureRecognizer) {
+        if sender.state == .recognized {
+            //let postCell = PostTableViewCell()
+            if sender.view is PostTableViewCell {
+                if let indexPathRow = sender.view?.tag {
+                    let info = data[indexPathRow]
+                    print(info)
+                    print(info.image)
+                    print(info.author)
+                    print(info.description)
+                    print(info.likes)
+                    print(info.views)
+                    likeService.createItem(author: info.author, text: info.description, image: info.image, likes: String(describing: info.likes), views: String(describing: info.views))
+                } else {
+                    print("ошибка сохранения")
+                }
+            }
+        }
+    }
+    
+
  
     func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
@@ -156,11 +179,25 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             ) as? PostTableViewCell else {
                 fatalError("could not dequeueReusableCell")
             }
+            
+            cell.tag = indexPath.row
+            let doubleTapClick = UITapGestureRecognizer(target: self, action: #selector(doubleTapClickAction(_:)))
+            doubleTapClick.numberOfTapsRequired = 2
+            cell.addGestureRecognizer(doubleTapClick)
             cell.update(data[indexPath.row])
+            //cell.isUserInteractionEnabled = true
             return cell
             
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        /*
+        let dataItem = data[indexPath.row]
+        
+        let _: () = likeService.createItem(author: dataItem.author, text: dataItem.description, image: dataItem.image, likes: dataItem.likes, views: dataItem.views)
+         */
     }
     
     func tableView(
@@ -215,6 +252,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
        
     }
     
-    
 }
+
+
 

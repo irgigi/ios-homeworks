@@ -9,10 +9,9 @@ class PostTableViewCell: UITableViewCell {
     let profileTableHeaderView = ProfileTableHeaderView()
     
     
-    
     // MARK: -
     
-    let autorLabel: UILabel = {
+    lazy var autorLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -20,7 +19,7 @@ class PostTableViewCell: UITableViewCell {
         return label
     }()
     
-    let imagePost: UIImageView = {
+    lazy var imagePost: UIImageView = {
         let image = UIImageView()
         let screenWidth = UIScreen.main.bounds.width
         image.backgroundColor = .black
@@ -32,7 +31,7 @@ class PostTableViewCell: UITableViewCell {
         return image
     }()
     
-    let descriptionLabel: UILabel = {
+    lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .systemGray
@@ -40,7 +39,7 @@ class PostTableViewCell: UITableViewCell {
         return label
     }()
     
-    let likesLabel: UILabel = {
+    lazy var likesLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -48,7 +47,7 @@ class PostTableViewCell: UITableViewCell {
         return label
     }()
     
-    let viewsLabel: UILabel = {
+    lazy var viewsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -131,6 +130,8 @@ class PostTableViewCell: UITableViewCell {
         viewsLabel.text! += String(describing: model.views)
         
         }
+    
+
     
     func consraintInCell() {
         

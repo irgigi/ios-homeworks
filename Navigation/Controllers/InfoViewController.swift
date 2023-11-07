@@ -84,7 +84,7 @@ class InfoViewController: UIViewController {
                 case .success(let res):
                     for residentURL in res.residents {
                         URLSession.shared.dataTask(with: residentURL) { data, response, error in
-                            if let error = error {
+                            if error != nil {
                                 print("Ошибка загрузки данных")
                                 return
                             }

@@ -45,5 +45,5 @@ final class CoreDataService: ICoreDataService {
 }
 
 private extension String {
-    static let coreDataBaseName = "DataBaseModel"
+    static let coreDataBaseName = "DataBase"
 }

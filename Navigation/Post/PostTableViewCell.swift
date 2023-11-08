@@ -175,11 +175,13 @@ class PostTableViewCell: UITableViewCell {
             likesLabel.leadingAnchor.constraint(equalTo: stackForLabels.leadingAnchor),
             likesLabel.leftAnchor.constraint(equalTo: leftAnchor),
             likesLabel.bottomAnchor.constraint(equalTo: stackForLabels.bottomAnchor),
+            likesLabel.widthAnchor.constraint(equalToConstant: 50),
         
             viewsLabel.topAnchor.constraint(equalTo: stackForLabels.topAnchor),
             viewsLabel.trailingAnchor.constraint(equalTo: stackForLabels.trailingAnchor),
             viewsLabel.rightAnchor.constraint(equalTo: rightAnchor),
-            viewsLabel.bottomAnchor.constraint(equalTo: stackForLabels.bottomAnchor)
+            viewsLabel.bottomAnchor.constraint(equalTo: stackForLabels.bottomAnchor),
+            viewsLabel.widthAnchor.constraint(equalToConstant: 50)
       
         ])
         

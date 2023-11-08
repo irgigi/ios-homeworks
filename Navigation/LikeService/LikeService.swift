@@ -26,6 +26,17 @@ final class LikeService {
         }
     }
     
+    func getItems() -> [DataBaseModel] {
+        let request = DataBaseModel.fetchRequest()
+        do {
+            let data = try coreDataService.context.fetch(request)
+            return data
+        } catch {
+            print("-error-")
+            return []
+        }
+    }
+    
     func createItem(author: String, text: String, image: String, likes: String, views: String) {
         let newLike = DataBaseModel(context: coreDataService.context)
         newLike.author = author

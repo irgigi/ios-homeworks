@@ -48,6 +48,20 @@ extension PostModel {
                       likes: 1,
                       views: 1),
             
+            PostModel(author: "Felix",
+                      description: "My love",
+                      image: "felix6",
+                      likes: 1,
+                      views: 1),
+            
+            PostModel(author: "Felix",
+                      description: "My love",
+                      image: "felix7",
+                      likes: 1,
+                      views: 1),
+            
         ]
     }
 }
+
+

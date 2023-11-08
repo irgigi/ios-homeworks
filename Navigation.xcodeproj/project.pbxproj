@@ -37,6 +37,7 @@
 		86AC75182AF9EF0E00A61A33 /* LikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AC75172AF9EF0E00A61A33 /* LikeService.swift */; };
 		86B11ECA2A8BD614000D994E /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B11EC92A8BD614000D994E /* PhotosTableViewCell.swift */; };
 		86B7F0082AC17E9700EE3BB2 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 86B7F0072AC17E9700EE3BB2 /* iOSIntPackage */; };
+		86C1B1512AFB6680006AD176 /* LikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C1B1502AFB6680006AD176 /* LikeTableViewCell.swift */; };
 		86CB73692AC4456F00736AC2 /* BruteForceClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CB73682AC4456F00736AC2 /* BruteForceClass.swift */; };
 		86D533582AD98BD400814C56 /* JSONBD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D533572AD98BD400814C56 /* JSONBD.swift */; };
 		86D6F6AD2AF941BB00435625 /* DataBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 86D6F6AB2AF941BB00435625 /* DataBase.xcdatamodeld */; };
@@ -78,6 +79,7 @@
 		86AC75142AF9DBAD00A61A33 /* LikePostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostController.swift; sourceTree = "<group>"; };
 		86AC75172AF9EF0E00A61A33 /* LikeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeService.swift; sourceTree = "<group>"; };
 		86B11EC92A8BD614000D994E /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
+		86C1B1502AFB6680006AD176 /* LikeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeTableViewCell.swift; sourceTree = "<group>"; };
 		86CB73682AC4456F00736AC2 /* BruteForceClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForceClass.swift; sourceTree = "<group>"; };
 		86D533572AD98BD400814C56 /* JSONBD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBD.swift; sourceTree = "<group>"; };
 		86D6F6AC2AF941BB00435625 /* DataBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataBase.xcdatamodel; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 		8605E1CC2AF8E3A50063FC6E /* Post */ = {
 			isa = PBXGroup;
 			children = (
+				86C1B1502AFB6680006AD176 /* LikeTableViewCell.swift */,
 				86AC75142AF9DBAD00A61A33 /* LikePostController.swift */,
 				867ED7B52A597106001A1D22 /* PostTableViewCell.swift */,
 				865A9B052A5673FF00929A10 /* Post.swift */,
@@ -328,6 +331,7 @@
 				86AC75182AF9EF0E00A61A33 /* LikeService.swift in Sources */,
 				86815E272A89EB1800BCA8C8 /* Checker.swift in Sources */,
 				865A9B062A5673FF00929A10 /* Post.swift in Sources */,
+				86C1B1512AFB6680006AD176 /* LikeTableViewCell.swift in Sources */,
 				867F4EBE2AD555EF006977A1 /* NetworkManager.swift in Sources */,
 				86815E2F2A8A739F00BCA8C8 /* LoginFactory.swift in Sources */,
 				8609122A2A8FD7180009C9B3 /* ElementsCollectionViewCell.swift in Sources */,

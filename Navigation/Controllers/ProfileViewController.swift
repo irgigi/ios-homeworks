@@ -84,7 +84,6 @@ class ProfileViewController: UIViewController {
     
     @objc func doubleTapClickAction(_ sender: UITapGestureRecognizer) {
         if sender.state == .recognized {
-            //let postCell = PostTableViewCell()
             if sender.view is PostTableViewCell {
                 if let indexPathRow = sender.view?.tag {
                     let info = data[indexPathRow]
@@ -185,7 +184,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             doubleTapClick.numberOfTapsRequired = 2
             cell.addGestureRecognizer(doubleTapClick)
             cell.update(data[indexPath.row])
-            //cell.isUserInteractionEnabled = true
             return cell
             
         }
@@ -193,11 +191,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        /*
-        let dataItem = data[indexPath.row]
-        
-        let _: () = likeService.createItem(author: dataItem.author, text: dataItem.description, image: dataItem.image, likes: dataItem.likes, views: dataItem.views)
-         */
+
     }
     
     func tableView(

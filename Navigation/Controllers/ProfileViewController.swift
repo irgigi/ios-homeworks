@@ -9,6 +9,8 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     private let likeService = LikeService()
+    private var db = [DataBaseModel]()
+    
 
     let profileTableHeaderView = ProfileTableHeaderView()
     
@@ -65,7 +67,7 @@ class ProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .lightGray
         title = "Profile" 
-       
+        initialFetch()
         tableView.addSubview(profileTableHeaderView)
         view.addSubview(tableView)
         setupConstraints()
@@ -93,11 +95,24 @@ class ProfileViewController: UIViewController {
                     print(info.description)
                     print(info.likes)
                     print(info.views)
+                    likeService.saveObject(with: info.author, text: info.description, image: info.image, likes: String(describing: info.likes), views: String(describing: info.views)) { [weak self] newList in
+                        self?.db = newList
+                        self?.tableView.reloadData()
+                    }
+                    /*
                     likeService.createItem(author: info.author, text: info.description, image: info.image, likes: String(describing: info.likes), views: String(describing: info.views))
+                     */
                 } else {
                     print("ошибка сохранения")
                 }
             }
+        }
+    }
+    
+    private func initialFetch() {
+        likeService.fetchList { [weak self] newList in
+            self?.db = newList
+            self?.tableView.reloadData()
         }
     }
     

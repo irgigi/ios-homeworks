@@ -22,6 +22,16 @@ final class LikePostController: UIViewController {
         return tableView
     }()
     
+    private lazy var filterButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterButtonTupped))
+        return button
+    }()
+    
+    private lazy var clearfilterButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clearFilterButtonTupped))
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
@@ -32,12 +42,46 @@ final class LikePostController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        data = likeService.getItems()
-        tableView.reloadData()
+        likeService.fetchList { [weak self] list in
+            self?.data = list
+            self?.tableView.reloadData()
+        }
+        
+    }
+    
+    @objc func filterButtonTupped() {
+        let alertController = UIAlertController(title: "filter by author", message: "enter author's name", preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "author's name"
+        }
+        
+        let applyAction = UIAlertAction(title: "apply", style: .default) { [weak self, weak alertController] (_) in
+            if let authorName = alertController?.textFields?.first?.text {
+                self?.likeService.fetchItems(authorName: authorName) { [weak self] list in
+                    self?.data = list
+                    self?.tableView.reloadData()
+                }
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(applyAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func clearFilterButtonTupped() {
+        likeService.clearFilter { [weak self] newList in
+            self?.data = newList
+            self?.tableView.reloadData()
+        }
     }
         
     private func layout() {
-        
+        navigationItem.rightBarButtonItems = [clearfilterButton, filterButton]
         view.addSubview(tableView)
         
         let safeAreaGuide = view.safeAreaLayoutGuide
@@ -85,8 +129,13 @@ extension LikePostController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            //toDoService.deliteItem(at: indexPath.row)
-            tableView.reloadData()
+            print(indexPath.row)
+            likeService.delete(data[indexPath.row]) { [weak self] list in
+                self?.data = list
+                
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+
         }
     }
 }

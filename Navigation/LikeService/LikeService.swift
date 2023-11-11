@@ -9,58 +9,118 @@ final class LikeService {
     
     private let coreDataService: ICoreDataService = CoreDataService.shared
     
-    //private(set) var likeItems = [LikeModel]()
-    private(set) var db = [DataBaseModel]()
+    private var db = [DataBaseModel]()
     
-    init() {
-        fetchItems()
-    }
-    
-    private func fetchItems() {
-        
-        let request = DataBaseModel.fetchRequest()
-        do {
-            db = try coreDataService.context.fetch(request)
-        } catch {
-            print(error)
+    func fetchList(completion: @escaping ([DataBaseModel]) -> Void) {
+//      like  DispatchQueue.global().async {
+        coreDataService.backgroundContext.perform { [weak self] in
+            guard let self else { return }
+            let request = DataBaseModel.fetchRequest()
+            
+            do {
+                db = try coreDataService.backgroundContext.fetch(request).map { $0 }
+                //       like DispatchQueue.main.async {
+                coreDataService.mainContext.perform { [weak self] in
+                    guard let self else { return }
+                    completion(db)
+                }
+            } catch {
+                print(error)
+                db = []
+                completion(db)
+            }
         }
     }
     
-    func getItems() -> [DataBaseModel] {
-        let request = DataBaseModel.fetchRequest()
-        do {
-            let data = try coreDataService.context.fetch(request)
-            return data
-        } catch {
-            print("-error-")
-            return []
+    func fetchItems(authorName: String, completion: @escaping ([DataBaseModel]) -> Void) {
+        coreDataService.backgroundContext.perform { [weak self] in
+            guard let self else { return }
+            let request = DataBaseModel.fetchRequest()
+            // filter
+            request.predicate = NSPredicate(format: "author == %@", authorName)
+            
+            do {
+                db = try coreDataService.backgroundContext.fetch(request).map { $0 }
+                coreDataService.mainContext.perform { [weak self] in
+                    guard let self else { return }
+                    completion(db)
+                }
+            } catch {
+                print(error)
+                completion(db)
+            }
         }
     }
     
-    func createItem(author: String, text: String, image: String, likes: String, views: String) {
-        let newLike = DataBaseModel(context: coreDataService.context)
-        newLike.author = author
-        newLike.text = text
-        newLike.image = image
-        newLike.likes = likes
-        newLike.views = views
-        coreDataService.saveContext()
-        fetchItems()
-    }
-    
-    func fetchLike() -> [DataBaseModel] {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "DataBaseModel")
-        do {
-            return (try? coreDataService.context.fetch(fetchRequest) as? [DataBaseModel]) ?? []
+    func clearFilter(completion: @escaping ([DataBaseModel]) -> Void) {
+        coreDataService.backgroundContext.perform { [weak self] in
+            guard let self else { return }
+            let request = DataBaseModel.fetchRequest()
+            // clear filter
+            request.predicate = nil
+            
+            do {
+                db = try coreDataService.backgroundContext.fetch(request).map { $0 }
+                coreDataService.mainContext.perform { [weak self] in
+                    guard let self else { return }
+                    completion(db)
+                }
+            } catch {
+                print(error)
+                completion(db)
+            }
         }
     }
     
-    func deliteItem(at index: Int) {
-        coreDataService.context.delete(db[index])
-        coreDataService.saveContext()
-        fetchItems()
+    func saveObject(with author: String, text: String, image: String, likes: String, views: String, completion: @escaping ([DataBaseModel]) -> Void) {
+        coreDataService.backgroundContext.perform { [weak self] in
+            guard let self else { return }
+            
+            let dbModel = DataBaseModel(context: coreDataService.backgroundContext)
+            dbModel.author = author
+            dbModel.text = text
+            dbModel.image = image
+            dbModel.likes = likes
+            dbModel.views = views
+            
+            if coreDataService.backgroundContext.hasChanges {
+                do {
+                    try coreDataService.backgroundContext.save()
+                    coreDataService.mainContext.perform { [weak self] in
+                        guard let self else { return }
+                        db.insert(dbModel, at: 0)
+                        completion(db)
+                    }
+                } catch {
+                    coreDataService.mainContext.perform { [weak self] in
+                        guard let self else { return }
+                        completion(db)
+                    }
+                }
+            }
+        }
     }
     
-    
-    
+    func delete(_ dbModel: DataBaseModel, completion: @escaping ([DataBaseModel]) -> Void) {
+        coreDataService.backgroundContext.perform { [weak self] in
+            guard let self else { return }
+            coreDataService.backgroundContext.delete(dbModel)
+             
+            do {
+                try coreDataService.backgroundContext.save()
+                db.removeAll(where: { $0.id == dbModel.id })
+                coreDataService.mainContext.perform { [weak self] in
+                    guard let self else { return }
+                    completion(db)
+                }
+            } catch {
+                print(error)
+                coreDataService.mainContext.perform { [weak self] in
+                    guard let self else { return }
+                    completion(db)
+                }
+            }
+        }
+    }
+
 }

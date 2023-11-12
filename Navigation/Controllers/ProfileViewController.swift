@@ -11,7 +11,6 @@ class ProfileViewController: UIViewController {
     private let likeService = LikeService()
     private var db = [DataBaseModel]()
     
-
     let profileTableHeaderView = ProfileTableHeaderView()
     
     
@@ -85,23 +84,39 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func doubleTapClickAction(_ sender: UITapGestureRecognizer) {
+        let message = "saved"
         if sender.state == .recognized {
             if sender.view is PostTableViewCell {
                 if let indexPathRow = sender.view?.tag {
                     let info = data[indexPathRow]
+                    let alertController = UIAlertController(title: info.image, message: message, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "ok", style: .default)
+                    alertController.addAction(okAction)
                     print(info)
                     print(info.image)
                     print(info.author)
                     print(info.description)
                     print(info.likes)
                     print(info.views)
-                    likeService.saveObject(with: info.author, text: info.description, image: info.image, likes: String(describing: info.likes), views: String(describing: info.views)) { [weak self] newList in
-                        self?.db = newList
-                        self?.tableView.reloadData()
+                    
+                    likeService.fetchList { [weak self] list in
+                        for i in list {
+                            if i.image == info.image {
+                                print("фото уже есть")
+                                return
+                            } else {
+                                continue
+                            }
+                        }
+                        self?.present(alertController, animated: true)
+                        self?.likeService.saveObject(with: info.author, text: info.description, image: info.image, likes: String(describing: info.likes), views: String(describing: info.views)) { [weak self] newList in
+                            self?.db = newList
+                            
+                            self?.tableView.reloadData()
+                        }
                     }
-                    /*
-                    likeService.createItem(author: info.author, text: info.description, image: info.image, likes: String(describing: info.likes), views: String(describing: info.views))
-                     */
+                    //tableView.reloadData()
+
                 } else {
                     print("ошибка сохранения")
                 }
@@ -116,7 +131,6 @@ class ProfileViewController: UIViewController {
         }
     }
     
-
  
     func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
@@ -199,11 +213,13 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             doubleTapClick.numberOfTapsRequired = 2
             cell.addGestureRecognizer(doubleTapClick)
             cell.update(data[indexPath.row])
+            
             return cell
             
         }
         
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 

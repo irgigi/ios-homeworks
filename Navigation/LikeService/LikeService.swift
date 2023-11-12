@@ -72,6 +72,7 @@ final class LikeService {
         }
     }
     
+    
     func saveObject(with author: String, text: String, image: String, likes: String, views: String, completion: @escaping ([DataBaseModel]) -> Void) {
         coreDataService.backgroundContext.perform { [weak self] in
             guard let self else { return }
@@ -84,6 +85,7 @@ final class LikeService {
             dbModel.views = views
             
             if coreDataService.backgroundContext.hasChanges {
+                
                 do {
                     try coreDataService.backgroundContext.save()
                     coreDataService.mainContext.perform { [weak self] in

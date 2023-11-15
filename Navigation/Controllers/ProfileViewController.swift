@@ -5,11 +5,11 @@
 //
 
 import UIKit
+import CoreData
 
 class ProfileViewController: UIViewController {
     
-    private let likeService = LikeService()
-    private var db = [DataBaseModel]()
+    private let likeService: LikeService
     
     let profileTableHeaderView = ProfileTableHeaderView()
     
@@ -60,6 +60,18 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var fetchRezultController: NSFetchedResultsController<DataBaseModel> = {
+        let request = DataBaseModel.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "image", ascending: false)]
+        let fetchRezultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: likeService.backgroundContext , sectionNameKeyPath: nil, cacheName: nil)
+        fetchRezultController.delegate = self
+        return fetchRezultController
+    }()
+    
+    private func initialFetch() {
+        try? fetchRezultController.performFetch()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +82,15 @@ class ProfileViewController: UIViewController {
         tableView.addSubview(profileTableHeaderView)
         view.addSubview(tableView)
         setupConstraints()
-        
+    }
+    
+    init(likeService: LikeService) {
+        self.likeService = likeService
+        super .init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,15 +112,9 @@ class ProfileViewController: UIViewController {
                     let alertController = UIAlertController(title: info.image, message: message, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "ok", style: .default)
                     alertController.addAction(okAction)
-                    print(info)
-                    print(info.image)
-                    print(info.author)
-                    print(info.description)
-                    print(info.likes)
-                    print(info.views)
-                    
-                    likeService.fetchList { [weak self] list in
-                        for i in list {
+                    //получение данных домашка 9
+                    if let allObjects = fetchRezultController.fetchedObjects {
+                        for i in allObjects {
                             if i.image == info.image {
                                 print("фото уже есть")
                                 return
@@ -108,29 +122,21 @@ class ProfileViewController: UIViewController {
                                 continue
                             }
                         }
-                        self?.present(alertController, animated: true)
-                        self?.likeService.saveObject(with: info.author, text: info.description, image: info.image, likes: String(describing: info.likes), views: String(describing: info.views)) { [weak self] newList in
-                            self?.db = newList
-                            
-                            self?.tableView.reloadData()
-                        }
+                        self.present(alertController, animated: true)
+                        
+                        // сохранение домашка 9
+                        self.likeService.newSaveObject(author: info.author, text: info.description, image: info.image, likes: String(describing: info.likes), views: String(describing: info.views))
+                        
+                        self.tableView.reloadData()
                     }
-                    //tableView.reloadData()
-
+                    
                 } else {
                     print("ошибка сохранения")
                 }
             }
         }
     }
-    
-    private func initialFetch() {
-        likeService.fetchList { [weak self] newList in
-            self?.db = newList
-            self?.tableView.reloadData()
-        }
-    }
-    
+
  
     func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
@@ -276,6 +282,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         }
        
     }
+    
+}
+
+extension ProfileViewController: NSFetchedResultsControllerDelegate {
     
 }
 

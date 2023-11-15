@@ -11,6 +11,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 
     var brute = BruteForceClass()
     
+    private var likeService = LikeService()
+    
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
@@ -258,7 +260,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func buttonToProfile() {
        
-        let profileViewController = ProfileViewController()
+        let profileViewController = ProfileViewController(likeService: likeService)
         let logInspector = LoginInspector()
 
         guard let login = loginField.text, let password = passwordField.text else {

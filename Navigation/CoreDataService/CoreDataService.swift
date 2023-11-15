@@ -29,6 +29,7 @@ final class CoreDataService: ICoreDataService {
         return container
     }()
     
+    
     lazy var mainContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         context.persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
@@ -40,25 +41,6 @@ final class CoreDataService: ICoreDataService {
         context.persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
         return context
     }()
-    
-    //ex
-    /*
-    lazy var context: NSManagedObjectContext = {
-        return persistentContainer.viewContext
-    }()
-    
-    func saveContext() {
-        if context.hasChanges {
-            do {
-                try context.save()
-                print("Данные успешно сохранены")
-            } catch {
-                print(error)
-                assertionFailure("save error")
-            }
-        }
-    }
-     */
      
 }
 

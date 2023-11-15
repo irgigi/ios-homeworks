@@ -5,78 +5,22 @@
 
 import CoreData
 
-final class LikeService {
+protocol ILikeService {
+    var backgroundContext: NSManagedObjectContext { get }
+}
+
+final class LikeService: ILikeService {
     
     private let coreDataService: ICoreDataService = CoreDataService.shared
     
-    private var db = [DataBaseModel]()
-    
-    func fetchList(completion: @escaping ([DataBaseModel]) -> Void) {
-//      like  DispatchQueue.global().async {
-        coreDataService.backgroundContext.perform { [weak self] in
-            guard let self else { return }
-            let request = DataBaseModel.fetchRequest()
-            
-            do {
-                db = try coreDataService.backgroundContext.fetch(request).map { $0 }
-                //       like DispatchQueue.main.async {
-                coreDataService.mainContext.perform { [weak self] in
-                    guard let self else { return }
-                    completion(db)
-                }
-            } catch {
-                print(error)
-                db = []
-                completion(db)
-            }
-        }
-    }
-    
-    func fetchItems(authorName: String, completion: @escaping ([DataBaseModel]) -> Void) {
-        coreDataService.backgroundContext.perform { [weak self] in
-            guard let self else { return }
-            let request = DataBaseModel.fetchRequest()
-            // filter
-            request.predicate = NSPredicate(format: "author == %@", authorName)
-            
-            do {
-                db = try coreDataService.backgroundContext.fetch(request).map { $0 }
-                coreDataService.mainContext.perform { [weak self] in
-                    guard let self else { return }
-                    completion(db)
-                }
-            } catch {
-                print(error)
-                completion(db)
-            }
-        }
-    }
-    
-    func clearFilter(completion: @escaping ([DataBaseModel]) -> Void) {
-        coreDataService.backgroundContext.perform { [weak self] in
-            guard let self else { return }
-            let request = DataBaseModel.fetchRequest()
-            // clear filter
-            request.predicate = nil
-            
-            do {
-                db = try coreDataService.backgroundContext.fetch(request).map { $0 }
-                coreDataService.mainContext.perform { [weak self] in
-                    guard let self else { return }
-                    completion(db)
-                }
-            } catch {
-                print(error)
-                completion(db)
-            }
-        }
+    var backgroundContext: NSManagedObjectContext {
+        return coreDataService.backgroundContext
     }
     
     
-    func saveObject(with author: String, text: String, image: String, likes: String, views: String, completion: @escaping ([DataBaseModel]) -> Void) {
+    func newSaveObject(author: String, text: String, image: String, likes: String, views: String) {
         coreDataService.backgroundContext.perform { [weak self] in
             guard let self else { return }
-            
             let dbModel = DataBaseModel(context: coreDataService.backgroundContext)
             dbModel.author = author
             dbModel.text = text
@@ -88,41 +32,33 @@ final class LikeService {
                 
                 do {
                     try coreDataService.backgroundContext.save()
-                    coreDataService.mainContext.perform { [weak self] in
-                        guard let self else { return }
-                        db.insert(dbModel, at: 0)
-                        completion(db)
-                    }
+                    
                 } catch {
-                    coreDataService.mainContext.perform { [weak self] in
-                        guard let self else { return }
-                        completion(db)
-                    }
+                    print(error.localizedDescription)
                 }
+                
             }
+            
         }
+        
     }
     
-    func delete(_ dbModel: DataBaseModel, completion: @escaping ([DataBaseModel]) -> Void) {
+    
+    func newDeliteObject(_ dbModel: DataBaseModel) {
         coreDataService.backgroundContext.perform { [weak self] in
             guard let self else { return }
             coreDataService.backgroundContext.delete(dbModel)
-             
-            do {
-                try coreDataService.backgroundContext.save()
-                db.removeAll(where: { $0.id == dbModel.id })
-                coreDataService.mainContext.perform { [weak self] in
-                    guard let self else { return }
-                    completion(db)
+            
+            if coreDataService.backgroundContext.hasChanges {
+                
+                do {
+                    try coreDataService.backgroundContext.save()
+                    
+                } catch {
+                    print(error.localizedDescription)
                 }
-            } catch {
-                print(error)
-                coreDataService.mainContext.perform { [weak self] in
-                    guard let self else { return }
-                    completion(db)
-                }
+                
             }
         }
     }
-
 }
